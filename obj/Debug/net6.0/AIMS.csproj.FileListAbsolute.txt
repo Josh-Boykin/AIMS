@@ -1,0 +1,15 @@
+C:\Users\Boomb\source\repos\AIMS\AIMS\bin\Debug\net6.0\AIMS.exe
+C:\Users\Boomb\source\repos\AIMS\AIMS\bin\Debug\net6.0\AIMS.deps.json
+C:\Users\Boomb\source\repos\AIMS\AIMS\bin\Debug\net6.0\AIMS.runtimeconfig.json
+C:\Users\Boomb\source\repos\AIMS\AIMS\bin\Debug\net6.0\AIMS.dll
+C:\Users\Boomb\source\repos\AIMS\AIMS\bin\Debug\net6.0\AIMS.pdb
+C:\Users\Boomb\source\repos\AIMS\AIMS\obj\Debug\net6.0\AIMS.csproj.AssemblyReference.cache
+C:\Users\Boomb\source\repos\AIMS\AIMS\obj\Debug\net6.0\AIMS.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Boomb\source\repos\AIMS\AIMS\obj\Debug\net6.0\AIMS.AssemblyInfoInputs.cache
+C:\Users\Boomb\source\repos\AIMS\AIMS\obj\Debug\net6.0\AIMS.AssemblyInfo.cs
+C:\Users\Boomb\source\repos\AIMS\AIMS\obj\Debug\net6.0\AIMS.csproj.CoreCompileInputs.cache
+C:\Users\Boomb\source\repos\AIMS\AIMS\obj\Debug\net6.0\AIMS.dll
+C:\Users\Boomb\source\repos\AIMS\AIMS\obj\Debug\net6.0\refint\AIMS.dll
+C:\Users\Boomb\source\repos\AIMS\AIMS\obj\Debug\net6.0\AIMS.pdb
+C:\Users\Boomb\source\repos\AIMS\AIMS\obj\Debug\net6.0\AIMS.genruntimeconfig.cache
+C:\Users\Boomb\source\repos\AIMS\AIMS\obj\Debug\net6.0\ref\AIMS.dll
