@@ -11,8 +11,8 @@ Alcohol Inventory Managment System Project for Code Kentucky
 
   - I plan to implement the following commands:
 
-  	-Red Add Product - Save name of new product and cost of unit.
-	- Green Remove Product - Remove product name and cost. 
+  	- Add Product - Save name of new product and cost of unit.
+	- Remove Product - Remove product name and cost. 
 	- Track Inventory - Input quantity of a product at the current time by tenths of a bottle.
 	- Edit - Retrieve current or previous copies of stored inventory numbers and adjust specific product quantities.  
 	- Report - Access a summary of inventory levels, value of inventory and compare to previous inventories. 
@@ -22,7 +22,7 @@ Alcohol Inventory Managment System Project for Code Kentucky
 
 ### Feature 1: 
 	
-  - implement a “master loop” console application where the user can repeatedly enter commands/perform actions,
+  - Implement a “master loop” console application where the user can repeatedly enter commands/perform actions,
 	including choosing to exit the program
 	
 ### Feature 2:
