@@ -6,8 +6,8 @@
 
 //namespace AIMS
 //{
-//    internal class Inventory 
+//    internal class Inventory
 //    {
-//        public static List<Brandtype>(); 
+//        public static List<Brandtype> Initialize
 //    }
 //}
