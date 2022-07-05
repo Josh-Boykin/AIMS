@@ -42,7 +42,7 @@ namespace AIMS
             **         **     **    **      **      **              \  \____/  /
            **           **  ******  **      **  ******               \________/
 ";
-            Console.WriteLine(logo, Color.Red);
+            Console.WriteLine(logo);
         }
     }
 }

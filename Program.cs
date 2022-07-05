@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace AIMS
 {
@@ -13,6 +14,14 @@ namespace AIMS
             Thread.Sleep(2000);
             Console.WriteLine();
             Console.WriteLine("What would you like to do?");
+
+            /*
+            Console.WriteLine("Enter name of new product.");
+            Product P1 = new Product();
+            P1.Name = Console.Readline();
+            Console.ReadLine(ProductName.Name);
+            Console.WriteLine("Enter value of price per unit.");
+            */ 
         }    
     }
 }
