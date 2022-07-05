@@ -9,21 +9,35 @@ namespace AIMS
     internal class Product
     {
         private string productname; // field
-        public string ProductName   // property
-            {
-                get { return productname; }
-                set { productname = value; }
-            }
-        //Public string ProductName { get; set; }
+        //public string ProductName   // property
+        //    {
+        //        get { return productname; }
+        //        set { productname = value; }
+        //    }
+        public string ProductName { get; set; }
+
         private decimal productprice; // field
         public decimal ProductPrice  // property
         {
-            get { return productprice; }
-            set { productprice = value; }
-        }
-        //public decimal ProductPrice { get; set; }   need to have rounded to tenths
+            get 
+            {
+                return productprice;
+            }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException();
+                }
+                //decimal d = Math.Round(value, 2); alternative method
+                //productprice = d;
+                productprice = Math.Round(value, 2);
 
-    //string ProductName;
-    //decimal ProductPrice
+            }
+        }
+        //public decimal ProductPrice { get; set; }
+
+        //string ProductName;
+        //decimal ProductPrice
     }
 }
