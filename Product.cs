@@ -8,36 +8,39 @@ namespace AIMS
 {
     internal class Product
     {
-        private string productname; // field
-        //public string ProductName   // property
-        //    {
-        //        get { return productname; }
-        //        set { productname = value; }
-        //    }
-        public string ProductName { get; set; }
+        private string name;      
+        public string Name { get; set; }
 
-        private decimal productprice; // field
-        public decimal ProductPrice  // property
+        private decimal price; // field
+        public decimal Price  // property
         {
             get 
             {
-                return productprice;
+                return price;
             }
             set
             {
-                if (value < 0)
+                if (value <= 0)
                 {
                     throw new ArgumentException();
-                }
+                }                
                 //decimal d = Math.Round(value, 2); alternative method
-                //productprice = d;
-                productprice = Math.Round(value, 2);
-
+                //price = d;
+                price = Math.Round(value, 2);
             }
         }
-        //public decimal ProductPrice { get; set; }
-
-        //string ProductName;
-        //decimal ProductPrice
+        private decimal quantity;
+        public decimal Quantity 
+        {
+            get 
+            { 
+                return quantity; 
+            } 
+            set 
+            { 
+                quantity = Math.Round(value, 1);
+            } 
+        }
+        //public decimal Price { get; set; }       
     }
 }

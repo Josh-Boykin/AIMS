@@ -10,16 +10,15 @@ namespace AIMS
         {
             Console.Clear();
             MenuLoop.WriteLogo();
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             Console.WriteLine("Welcome to the Alcohol Inventory Managment System.");
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             Console.WriteLine();
-            Console.WriteLine("What would you like to do?");
+            Console.WriteLine("Please enter a product name.");
 
-            
 
             Product bottle = new Product();
-            bottle.ProductName = Console.ReadLine();
+            bottle.Name = Console.ReadLine();
             
             bool isError = false;
             do
@@ -28,7 +27,7 @@ namespace AIMS
                 try
                 {
                     isError = false;
-                    bottle.ProductPrice = Convert.ToDecimal(Console.ReadLine());
+                    bottle.Price = Convert.ToDecimal(Console.ReadLine());
                 }
                 catch (System.OverflowException)
                 {
@@ -55,7 +54,7 @@ namespace AIMS
                 }
             } while (isError); // do while checks at end
 
-                Console.WriteLine("The Price of the bottle called " + bottle.ProductName + " will be " + bottle.ProductPrice.ToString("N2"));
+                Console.WriteLine("The Price of the bottle called " + bottle.Name + " will be " + bottle.Price.ToString("N2"));
             Console.ReadLine();
             
 
