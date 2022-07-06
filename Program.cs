@@ -14,8 +14,8 @@ namespace AIMS
             Console.WriteLine("Welcome to the Alcohol Inventory Managment System.");
             Thread.Sleep(1000);
             Console.WriteLine();
+            
             Console.WriteLine("Please enter a product name.");
-
 
             Product bottle = new Product();
             bottle.Name = Console.ReadLine();

@@ -9,7 +9,10 @@ namespace AIMS
     internal class AlcoholType
     {
         private string type;
-        public string Type { get; set; }
-        List<AlcoholType> AlcoholTypes { get; set; }
+        public static string Type { get; set; }
+        public override string 
+       List<Type> types = new List<Type>();
+        types.Add(new Type() { string[]));
     }
 }
+
