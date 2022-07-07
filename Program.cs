@@ -15,44 +15,78 @@ namespace AIMS
             Thread.Sleep(1000);
             Console.WriteLine();
             
-            Console.WriteLine("Please enter a product name.");
+            
 
             Product bottle = new Product();
-            bottle.Name = Console.ReadLine();
-            
-            bool isError = false;
+            //bottle.Name = Console.ReadLine();
+
+            bool isErrorN = false;
             do
             {
-                Console.WriteLine("Please enter a valid price.");
+                Console.WriteLine("Please enter a product name.");
                 try
                 {
-                    isError = false;
-                    bottle.Price = Convert.ToDecimal(Console.ReadLine());
+                    isErrorN = false;
+                    bottle.Name =  ToLower(Console.ReadLine());// make all literals become lower case
                 }
-                catch (System.OverflowException)
+                catch (System.ArgumentOutOfRangeException)
                 {
-                    isError = true;
+                    isErrorN = true;
                     System.Console.WriteLine(
                         "The conversion from string to decimal overflowed.");
                 }
                 catch (System.FormatException)
                 {
-                    isError = true;
+                    isErrorN = true;
                     System.Console.WriteLine(
                         "The string is not formatted as a decimal.");
                 }
                 catch (System.ArgumentNullException)
                 {
-                    isError = true;
+                    isErrorN = true;
                     System.Console.WriteLine(
                         "The string is null.");
                 }
                 catch (System.ArgumentException)
                 {
-                    isError = true;
+                    isErrorN = true;
                     Console.WriteLine("Not a valid value.");
                 }
-            } while (isError); // do while checks at end
+            } while (isErrorN);
+
+            bool isErrorP = false;
+            do
+            {
+                Console.WriteLine("Please enter the price for the product.");
+                try
+                {
+                    isErrorP = false;
+                    bottle.Price = Convert.ToDecimal(Console.ReadLine());
+                }
+                catch (System.OverflowException)
+                {
+                    isErrorP = true;
+                    System.Console.WriteLine(
+                        "The conversion from string to decimal overflowed.");
+                }
+                catch (System.FormatException)
+                {
+                    isErrorP = true;
+                    System.Console.WriteLine(
+                        "The string is not formatted as a decimal.");
+                }
+                catch (System.ArgumentNullException)
+                {
+                    isErrorP = true;
+                    System.Console.WriteLine(
+                        "The string is null.");
+                }
+                catch (System.ArgumentException)
+                {
+                    isErrorP = true;
+                    Console.WriteLine("Not a valid value.");
+                }
+            } while (isErrorP); // do while checks at end
 
                 Console.WriteLine("The Price of the bottle called " + bottle.Name + " will be " + bottle.Price.ToString("N2"));
             Console.ReadLine();

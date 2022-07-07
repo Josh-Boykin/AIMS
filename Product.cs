@@ -9,8 +9,20 @@ namespace AIMS
     internal class Product
     {
         private string name;      
-        public string Name { get; set; }
-
+        public string Name
+        {
+            get 
+            {
+                return Name;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value");
+                }   
+            }
+        }
         private decimal price; // field
         public decimal Price  // property
         {
