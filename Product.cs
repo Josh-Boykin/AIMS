@@ -17,10 +17,16 @@ namespace AIMS
             }
             set
             {
-                if (value == null)
+                string myString = value;
+                if (value == string.Empty)// WIP need to reject null answers
                 {
-                    throw new ArgumentNullException("value");
-                }   
+                    throw new ArgumentNullException ("You must enter a name");
+                }
+                else if (myString.Length > 20)
+                {
+                    throw new ArgumentOutOfRangeException(" over 20 characters not allowed for product name.");
+                }
+                name = value;
             }
         }
         private decimal price; // field

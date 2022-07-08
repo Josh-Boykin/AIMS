@@ -8,7 +8,6 @@ namespace AIMS
 {
     internal class Inventory
     {
-
-
+        List<AlcoholType> alcoholTypeList = new List<AlcoholType>();             
     }
 }

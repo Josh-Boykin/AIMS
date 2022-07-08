@@ -15,11 +15,31 @@ namespace AIMS
             Thread.Sleep(1000);
             Console.WriteLine();
             
-            
+            AlcoholType vodka = new AlcoholType();
+            vodka.AddProduct("Titos", 24.95F);
+            vodka.AddProduct("Grey Goose", 35.99F);
+            vodka.AddProduct("Stoli", 14.50F);
+
+            AlcoholType rum = new AlcoholType();
+            rum.AddProduct("Bacardi", 13.00F);
+            rum.AddProduct("Malibu", 8.79F);
+
+            AlcoholType bourbon = new AlcoholType();
+            bourbon.AddProduct("Makers Mark", 28.89F);
+            bourbon.AddProduct("Angels Envy", 41.19F);
+            bourbon.AddProduct("Woodford Reserve", 35.99F);
+
+            AlcoholType tequila = new AlcoholType();
+            tequila.AddProduct("Patron", 19.10F);
+            tequila.AddProduct("Don Julio 1942", 74.95F);
+
+            AlcoholType gin = new AlcoholType();
+            gin.AddProduct("Bombay Sapphire", 17.00F);
+            gin.AddProduct("Hendrick's", 27.15F);
 
             Product bottle = new Product();
-            //bottle.Name = Console.ReadLine();
-
+            //bottle.Name = Console.ReadLine();            
+            
             bool isErrorN = false;
             do
             {
@@ -27,33 +47,22 @@ namespace AIMS
                 try
                 {
                     isErrorN = false;
-                    bottle.Name =  ToLower(Console.ReadLine());// make all literals become lower case
+                    bottle.Name = Console.ReadLine();// make all literals become lower case
                 }
-                catch (System.ArgumentOutOfRangeException)
+                catch (ArgumentOutOfRangeException)
                 {
                     isErrorN = true;
-                    System.Console.WriteLine(
-                        "The conversion from string to decimal overflowed.");
-                }
-                catch (System.FormatException)
+                    Console.WriteLine(
+                        "Oops. You used too many characters.");
+                }                
+                catch (ArgumentNullException)
                 {
                     isErrorN = true;
-                    System.Console.WriteLine(
-                        "The string is not formatted as a decimal.");
-                }
-                catch (System.ArgumentNullException)
-                {
-                    isErrorN = true;
-                    System.Console.WriteLine(
-                        "The string is null.");
-                }
-                catch (System.ArgumentException)
-                {
-                    isErrorN = true;
-                    Console.WriteLine("Not a valid value.");
-                }
+                    Console.WriteLine(
+                        "Product name cannot be blank.");
+                }                
             } while (isErrorN);
-
+            
             bool isErrorP = false;
             do
             {
@@ -63,25 +72,25 @@ namespace AIMS
                     isErrorP = false;
                     bottle.Price = Convert.ToDecimal(Console.ReadLine());
                 }
-                catch (System.OverflowException)
+                catch (OverflowException)
                 {
                     isErrorP = true;
                     System.Console.WriteLine(
                         "The conversion from string to decimal overflowed.");
                 }
-                catch (System.FormatException)
+                catch (FormatException)
                 {
                     isErrorP = true;
                     System.Console.WriteLine(
                         "The string is not formatted as a decimal.");
                 }
-                catch (System.ArgumentNullException)
+                catch (ArgumentNullException)
                 {
                     isErrorP = true;
                     System.Console.WriteLine(
                         "The string is null.");
                 }
-                catch (System.ArgumentException)
+                catch (ArgumentException)
                 {
                     isErrorP = true;
                     Console.WriteLine("Not a valid value.");
