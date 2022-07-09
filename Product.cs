@@ -13,10 +13,11 @@ namespace AIMS
         {
             get 
             {
-                return Name;
+                return name;
             }
             set
             {
+
                 string myString = value;
                 if (value == string.Empty)// WIP need to reject null answers
                 {
@@ -24,7 +25,7 @@ namespace AIMS
                 }
                 else if (myString.Length > 20)
                 {
-                    throw new ArgumentOutOfRangeException(" over 20 characters not allowed for product name.");
+                    throw new ArgumentOutOfRangeException(" over 20 characters is not allowed for product name.");
                 }
                 name = value;
             }
@@ -38,27 +39,27 @@ namespace AIMS
             }
             set
             {
-                if (value <= 0)
-                {
-                    throw new ArgumentException();
-                }                
-                //decimal d = Math.Round(value, 2); alternative method
-                //price = d;
+                //if (value < 1)
+                //{
+                //    throw new ArgumentException();
+                //}                
+                ////decimal d = Math.Round(value, 2); alternative method
+                ////price = d;
                 price = Math.Round(value, 2);
             }
         }
-        private decimal quantity;
-        public decimal Quantity 
-        {
-            get 
-            { 
-                return quantity; 
-            } 
-            set 
-            { 
-                quantity = Math.Round(value, 1);
-            } 
-        }
+        //private decimal quantity;
+        //public decimal Quantity 
+        //{
+        //    get 
+        //    { 
+        //        return quantity; 
+        //    } 
+        //    set 
+        //    { if 
+        //        quantity = Math.Round(value, 1); # Product inventory amount to tenths 
+        //    } 
+        
         //public decimal Price { get; set; }       
     }
 }

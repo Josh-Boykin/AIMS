@@ -36,10 +36,10 @@ namespace AIMS
             AlcoholType gin = new AlcoholType();
             gin.AddProduct("Bombay Sapphire", 17.00F);
             gin.AddProduct("Hendrick's", 27.15F);
-
-            Product bottle = new Product();
-            //bottle.Name = Console.ReadLine();            
             
+            Product bottle = new Product();
+            //bottle.Name = Console.ReadLine();                                 
+                
             bool isErrorN = false;
             do
             {
@@ -54,7 +54,7 @@ namespace AIMS
                     isErrorN = true;
                     Console.WriteLine(
                         "Oops. You used too many characters.");
-                }                
+                }
                 catch (ArgumentNullException)
                 {
                     isErrorN = true;

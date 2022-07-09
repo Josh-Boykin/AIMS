@@ -21,13 +21,13 @@ namespace AIMS
         //        Console.WriteLine();
         //    }
         //}
-        //public static void Say(string prefix, string message)
-        //{
-        //    Console.Write("[");
-        //    Console.Write(prefix, Color.White);
-        //    Console.Write("] " + message);
-        //    Console.WriteLine();
-        //}
+        public static void Say(string prefix, string message)
+        {
+            Console.Write("<");
+            Console.Write(prefix);
+            Console.Write("> " + message);
+            Console.WriteLine();
+        }
 
         public static void WriteLogo()
         {

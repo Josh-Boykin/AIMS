@@ -10,4 +10,22 @@ namespace AIMS
     {
         List<AlcoholType> alcoholTypeList = new List<AlcoholType>();             
     }
+    //public void AlcoholType listOfType(List<AlcoholType> Types)
+    //{
+    //    foreach (AlcoholType type in Types) 
+    //    {
+    //        if () 
+    //            return type;
+    //    }
+    //    return ;
+    //}
+
+
+
+
+
 }
+
+
+
+
