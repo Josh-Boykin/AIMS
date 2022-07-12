@@ -48,18 +48,25 @@ namespace AIMS
                 price = Math.Round(value, 2);
             }
         }
-        //private decimal quantity;
-        //public decimal Quantity 
-        //{
-        //    get 
-        //    { 
-        //        return quantity; 
-        //    } 
-        //    set 
-        //    { if 
-        //        quantity = Math.Round(value, 1); # Product inventory amount to tenths 
-        //    } 
-        
+    //    public void AllProducts();
+    ////    {
+    //        return new List<Product>
+    //        {
+    //            new Product( , )
+    //        };
+    //    }
+    //private decimal quantity;
+    //public decimal Quantity 
+    //{
+    //    get 
+    //    { 
+    //        return quantity; 
+    //    } 
+    //    set 
+    //    { if 
+    //        quantity = Math.Round(value, 1); # Product inventory amount to tenths 
+    //    } 
+
         //public decimal Price { get; set; }       
     }
 }

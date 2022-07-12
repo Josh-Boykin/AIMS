@@ -8,6 +8,7 @@ namespace AIMS
 {
     internal class Inventory
     {
+        //Add AlcoholType, Remove AlcoholType, Edit AlcoholType
         List<AlcoholType> alcoholTypeList = new List<AlcoholType>();             
     }
     //public void AlcoholType listOfType(List<AlcoholType> Types)

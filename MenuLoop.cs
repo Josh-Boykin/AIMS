@@ -25,7 +25,7 @@ namespace AIMS
         {
             Console.Write("<");
             Console.Write(prefix);
-            Console.Write("> " + message);
+            Console.Write("> " + message);// setting up menu on load
             Console.WriteLine();
         }
 

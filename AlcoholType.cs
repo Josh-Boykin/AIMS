@@ -21,8 +21,12 @@ namespace AIMS
 
             }
         }  
-
-        List<Product> productList = new List<Product>();
+         //AddProduct, RemoveProduct, EditProduct
+        //public void List<Product> AIMS()
+        //{
+        //    List<Product> productList = new List<Product>();
+        //    productList.Add(new Product( { Name = bottle.Name, Price = bottle.Price }));
+        //}
           
         
         public void AddProduct(string addName, float addPrice)

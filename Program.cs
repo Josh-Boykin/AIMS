@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading;
-
+using System.Collections.Generic;
 
 namespace AIMS
 {
@@ -14,12 +14,17 @@ namespace AIMS
             Console.WriteLine("Welcome to the Alcohol Inventory Managment System.");
             Thread.Sleep(1000);
             Console.WriteLine();
-            
+            //List<Product> allProducts = Product.AllProducts();
             AlcoholType vodka = new AlcoholType();
             vodka.AddProduct("Titos", 24.95F);
             vodka.AddProduct("Grey Goose", 35.99F);
             vodka.AddProduct("Stoli", 14.50F);
-
+            /*
+            foreach (AlcoholType type in vodka)
+            {
+                Console.Writeline()
+            }
+            */
             AlcoholType rum = new AlcoholType();
             rum.AddProduct("Bacardi", 13.00F);
             rum.AddProduct("Malibu", 8.79F);
@@ -36,7 +41,7 @@ namespace AIMS
             AlcoholType gin = new AlcoholType();
             gin.AddProduct("Bombay Sapphire", 17.00F);
             gin.AddProduct("Hendrick's", 27.15F);
-            
+           
             Product bottle = new Product();
             //bottle.Name = Console.ReadLine();                                 
                 
@@ -97,7 +102,7 @@ namespace AIMS
                 }
             } while (isErrorP); // do while checks at end
 
-                Console.WriteLine("The Price of the bottle called " + bottle.Name + " will be " + bottle.Price.ToString("N2"));
+            Console.WriteLine("The Price of the bottle called " + bottle.Name + " will be " + bottle.Price.ToString("N2"));
             Console.ReadLine();
             
 
