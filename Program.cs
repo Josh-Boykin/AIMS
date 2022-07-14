@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace AIMS
 {
@@ -8,13 +10,14 @@ namespace AIMS
     {
         static void Main(string[] args)
         {
+            string newline = System.Environment.NewLine;
             Console.Clear();
             MenuLoop.WriteLogo();
             Thread.Sleep(1000);
             Console.WriteLine("Welcome to the Alcohol Inventory Managment System.");
             Thread.Sleep(1000);
             Console.WriteLine();
-            //List<Product> allProducts = Product.AllProducts();
+
             AlcoholType vodka = new AlcoholType();
             vodka.AddProduct("Titos", 24.95F);
             vodka.AddProduct("Grey Goose", 35.99F);
@@ -41,10 +44,9 @@ namespace AIMS
             AlcoholType gin = new AlcoholType();
             gin.AddProduct("Bombay Sapphire", 17.00F);
             gin.AddProduct("Hendrick's", 27.15F);
-           
+
             Product bottle = new Product();
-            //bottle.Name = Console.ReadLine();                                 
-                
+            //Product amount = Console.ReadLine("Total Product:" + );
             bool isErrorN = false;
             do
             {
@@ -65,9 +67,9 @@ namespace AIMS
                     isErrorN = true;
                     Console.WriteLine(
                         "Product name cannot be blank.");
-                }                
+                }
             } while (isErrorN);
-            
+
             bool isErrorP = false;
             do
             {
@@ -101,13 +103,44 @@ namespace AIMS
                     Console.WriteLine("Not a valid value.");
                 }
             } while (isErrorP); // do while checks at end
+            bool isErrorQ = false;
+            do
+            {
+                Console.WriteLine("How much of the product do you have? \nYou must enter a number value by tenths (.1,2.4,etc.)");
+                try
+                {
+                    isErrorQ = false;
+                    bottle.Quantity = Convert.ToDecimal(Console.ReadLine());
+                }
+                catch (OverflowException)
+                {
+                    isErrorQ = true;
+                    System.Console.WriteLine(
+                        "The conversion from string to decimal overflowed.");
+                }
+                catch (FormatException)
+                {
+                    isErrorQ = true;
+                    System.Console.WriteLine(
+                        "The string is not formatted as a decimal.");
+                }
+                catch (ArgumentException)
+                {
+                    isErrorQ = true;
+                    Console.WriteLine("Not a valid value. Please try again.");
+                }
+            } while (isErrorQ);
 
-            Console.WriteLine("The Price of the bottle called " + bottle.Name + " will be " + bottle.Price.ToString("N2"));
+            Decimal Price = bottle.Price;
+            Decimal Quantity = bottle.Quantity;
+            Decimal QuantityPrice = Decimal.Multiply(Price, Quantity);
+
+            Console.WriteLine($"Product Name: {bottle.Name}\nProduct Price: {bottle.Price}\nAmount of Inventory: {Quantity}\nValue of Inventory: {QuantityPrice}");
             Console.ReadLine();
-            
+        }    
 
             
-        }
+        
         /*
         Console.WriteLine("Enter name of new product.");
         Product P1 = new Product();

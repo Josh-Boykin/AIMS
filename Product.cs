@@ -8,10 +8,10 @@ namespace AIMS
 {
     internal class Product
     {
-        private string name;      
+        private string name;
         public string Name
         {
-            get 
+            get
             {
                 return name;
             }
@@ -19,9 +19,9 @@ namespace AIMS
             {
 
                 string myString = value;
-                if (value == string.Empty)// WIP need to reject null answers
+                if (value == string.Empty)
                 {
-                    throw new ArgumentNullException ("You must enter a name");
+                    throw new ArgumentNullException("You must enter a name");
                 }
                 else if (myString.Length > 20)
                 {
@@ -33,40 +33,60 @@ namespace AIMS
         private decimal price; // field
         public decimal Price  // property
         {
-            get 
+            get
             {
                 return price;
             }
             set
             {
-                //if (value < 1)
-                //{
-                //    throw new ArgumentException();
-                //}                
-                ////decimal d = Math.Round(value, 2); alternative method
-                ////price = d;
+                if (value < 0)
+                {
+                    throw new ArgumentException();
+                }
                 price = Math.Round(value, 2);
             }
         }
-    //    public void AllProducts();
-    ////    {
-    //        return new List<Product>
-    //        {
-    //            new Product( , )
-    //        };
-    //    }
-    //private decimal quantity;
-    //public decimal Quantity 
-    //{
-    //    get 
-    //    { 
-    //        return quantity; 
-    //    } 
-    //    set 
-    //    { if 
-    //        quantity = Math.Round(value, 1); # Product inventory amount to tenths 
-    //    } 
 
-        //public decimal Price { get; set; }       
+        private decimal quantity;
+        public decimal Quantity
+        {
+            get
+            {
+                return quantity;
+            }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException();
+                }
+                quantity = Convert.ToDecimal(value);
+
+            }
+        }
+        public decimal QuantityPrice
+        {
+            get
+            {
+                return QuantityPrice;
+            }
+            set
+            {
+                Decimal QuantityPrice = Decimal.Multiply(Price, Quantity);
+            }
+            
+        }
+        public void SetName()
+        {
+            return; //is this right?
+        }
+        public void SetPrice() 
+        {
+            return;
+        }
+        public override string ToString() => $"Product Name:{Name}\n Product Price:{Price}\nAmount of Inventory:{Quantity}\nValue of Inventory{QuantityPrice}";
     }
 }
+    
+        
+        

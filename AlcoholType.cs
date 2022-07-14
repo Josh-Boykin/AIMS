@@ -9,33 +9,47 @@ namespace AIMS
 {
     internal class AlcoholType
     {
-        private string type;
-        public string Type
+        private string typeName;
+        public string TypeName
         {
             get
             {
-                return type;
+                return typeName;
             }
             set
             {
-
+                TypeName = value;
             }
-        }  
-         //AddProduct, RemoveProduct, EditProduct
-        //public void List<Product> AIMS()
+        }   
+        //public static void ListOfTypes(SortedSet<string> set)
         //{
-        //    List<Product> productList = new List<Product>();
-        //    productList.Add(new Product( { Name = bottle.Name, Price = bottle.Price }));
+
+        //    string set1 = string.Join(",", set);
+        //    Console.WriteLine(set1);
+        //    Console.ReadLine();
         //}
-          
-        
+
+        public void ListOfTypes(SortedSet<string> typeNames)
+        {
+            foreach (string typeName in typeNames)
+            {
+                return; Console.WriteLine(typeName);
+            }
+            Console.ReadLine();
+        }
+
         public void AddProduct(string addName, float addPrice)
         {
-            return;
+            addName = addName.ToLower();
+
             // create a new product based off my parameters
-            // add product to  list
+            // add product to list
         }
         public void RemoveProduct(string removeName, float removePrice) 
+        {
+
+        }
+        public void EditProduct(string editName, float editPrice)
         {
 
         }
