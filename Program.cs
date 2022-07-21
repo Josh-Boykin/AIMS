@@ -3,31 +3,89 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CsvHelper;
+using System.IO;
+using System.Globalization;
 
 namespace AIMS
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
-        {
+        {           
+            Menu mainMenu = new Menu();            
+            mainMenu.Text = " Welcome to the Alcohol Inventory Managment System.\r\n Please Make a selection using the number keys.";
+            Option exitOption = new Option();
+            exitOption.Description = "Exit";
+            exitOption.Action = () => 
+            {
+                Menu exitMenu = new Menu();
+                exitMenu.Text = "Are you sure you want to exit?";
+                Option exitYes = new Option();
+                exitYes.
+                Option exitNo = new Option();
+                Console.Clear();
+                MenuLoop.WriteLogo();
+                Console.WriteLine("Are you sure you want to exit?\r\n1.) Yes\r\n2.) No");
+                string Exit = Console.ReadLine();
+                if (Exit == "1")
+                {
+                    Environment.Exit(0);
+                }
+                else if (Exit == "2")
+                {
+                    mainMenu.Start();
+                }                
+            };
+            List<Option> options = new List<Option>();
+            options.Add(exitOption);
+            mainMenu.Options = options;
+            mainMenu.Start();
+
+            //var reader = new StreamReader(@"C:\Users\Boomb\source\repos\AIMS\AIMS_Repository.csv"); //can put inside a using case
+            //var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture); // can put inside a using case
+            //var records = csvReader.GetRecords<dynamic>().ToList();
+           
+            //var writer = new StreamWriter(@"C:\Users\Boomb\source\repos\AIMS\AIMS_Repository.csv"); //can put inside a using case
+            //var csvwriter = new CsvWriter(writer, CultureInfo.InvariantCulture); // can put inside a using case
+            //csvwriter.WriteRecords(records);
+
             string newline = System.Environment.NewLine;
-            Console.Clear();
-            MenuLoop.WriteLogo();
-            Thread.Sleep(1000);
-            Console.WriteLine("Welcome to the Alcohol Inventory Managment System.");
-            Thread.Sleep(1000);
-            Console.WriteLine();
+            
+            AlcoholType addName = new AlcoholType();
+            SortedSet<string> typeName = new SortedSet<string>()
+            {
+                "Vodka",
+                "Gin",
+                "Bourbon"
+            };
+
+            //bool isErrorT = false;
+            //do
+            //{
+            //    Console.WriteLine("Enter a Product Category name.(ex. Vodka, Rum..)");
+            //    try
+            //    {
+            //        isErrorT = false;
+            //        typeName.AddProduct(addName = Console.ReadLine());
+            //    }
+            //    catch (InvalidOperationException)
+            //    {
+            //        Console.WriteLine("Cannot modify a set you are also iterating over");
+            //    }
+            //} while (isErrorT);
+
+            //foreach (string typeName in ListOfType)
+            //{
+            //    typeNames.Add(type);
+            //    Console.WriteLine(type);
+            //}           
 
             AlcoholType vodka = new AlcoholType();
             vodka.AddProduct("Titos", 24.95F);
             vodka.AddProduct("Grey Goose", 35.99F);
             vodka.AddProduct("Stoli", 14.50F);
-            /*
-            foreach (AlcoholType type in vodka)
-            {
-                Console.Writeline()
-            }
-            */
+
             AlcoholType rum = new AlcoholType();
             rum.AddProduct("Bacardi", 13.00F);
             rum.AddProduct("Malibu", 8.79F);
@@ -46,7 +104,49 @@ namespace AIMS
             gin.AddProduct("Hendrick's", 27.15F);
 
             Product bottle = new Product();
-            //Product amount = Console.ReadLine("Total Product:" + );
+            //int isErrorM = true;
+            //while 
+            //Console.WriteLine("1.) Inventory\r\n2.) Add\r\n3.) Remove\r\n4.) Edit\r\n5.) Report\r\n6.) Exit");
+            //string option = Console.ReadLine();
+            //while (option != null)
+            //{
+            //    if (option == "1") // INVENTORY
+            //    {
+            //        Console.WriteLine("1!");
+            //    }
+            //    else if (option == "2") // ADD
+            //    {
+            //        Console.WriteLine("2!");
+            //    }
+            //    else if (option == "3") // REMOVE
+            //    {
+            //        Console.WriteLine("3!");
+            //    }
+            //    else if (option == "4") // EDIT
+            //    {
+            //        Console.WriteLine("4!");
+            //    }
+            //    else if (option == "5") // REPORT
+            //    {
+            //        Console.WriteLine("5!");
+            //    }
+            //    else if (option == "6") // EXIT
+            //    {
+            //        Console.Clear();
+            //        Console.WriteLine("Are you sure you want to exit?\r\n1.) Yes\r\n2.) No");
+            //        string optionExit = Console.ReadLine();
+            //        if (optionExit == "1")
+            //        {
+            //            Environment.Exit(0);
+            //        }
+            //        else if (optionExit == "2")
+            //        {
+            //            null;
+            //        }
+            //    }
+            //    else Console.WriteLine("Please enter a valid option");
+            //}
+            /*
             bool isErrorN = false;
             do
             {
@@ -135,22 +235,25 @@ namespace AIMS
             Decimal Quantity = bottle.Quantity;
             Decimal QuantityPrice = Decimal.Multiply(Price, Quantity);
 
-            Console.WriteLine($"Product Name: {bottle.Name}\nProduct Price: {bottle.Price}\nAmount of Inventory: {Quantity}\nValue of Inventory: {QuantityPrice}");
-            Console.ReadLine();
-        }    
-
-            
-        
-        /*
-        Console.WriteLine("Enter name of new product.");
-        Product P1 = new Product();
-        P1.Name = Console.Readline();
-        Console.ReadLine(ProductName.Name);
-        Console.WriteLine("Enter value of price per unit.");
-        */
-        
+            Console.WriteLine($"Product Name: {bottle.Name}\nProduct Price: ${bottle.Price}\nAmount of Inventory: {Quantity}\nValue of Inventory: ${QuantityPrice}");
+            Console.ReadLine();*/
+        }
     }
 }
+
+            /*
+           Console.WriteLine("Enter name of new product.");
+           Product P1 = new Product();
+           P1.Name = Console.Readline();
+           Console.ReadLine(ProductName.Name);
+           Console.WriteLine("Enter value of price per unit.");
+           */
+
+           
+        
+       
+        
+    
 
 
 

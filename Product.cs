@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CsvHelper;
+using System.IO;
+using System.Globalization;
 
 namespace AIMS
 {
-    internal class Product
-    {
-        private string name;
+    class Product
+    {        
         public string Name
         {
             get
             {
-                return name;
+                return Name;
             }
             set
             {
@@ -27,15 +29,14 @@ namespace AIMS
                 {
                     throw new ArgumentOutOfRangeException(" over 20 characters is not allowed for product name.");
                 }
-                name = value;
+                Name = value;
             }
         }
-        private decimal price; // field
         public decimal Price  // property
         {
             get
             {
-                return price;
+                return Price;
             }
             set
             {
@@ -43,16 +44,16 @@ namespace AIMS
                 {
                     throw new ArgumentException();
                 }
-                price = Math.Round(value, 2);
+                Price = Math.Round(value, 2);
             }
         }
 
-        private decimal quantity;
+
         public decimal Quantity
         {
             get
             {
-                return quantity;
+                return Quantity;
             }
             set
             {
@@ -60,8 +61,8 @@ namespace AIMS
                 {
                     throw new ArgumentException();
                 }
-                quantity = Convert.ToDecimal(value);
-
+                Quantity = Convert.ToDecimal(value);
+                Math.Round(value, 2); //check to see if this is working
             }
         }
         public decimal QuantityPrice

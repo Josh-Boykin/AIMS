@@ -3,37 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CsvHelper;
+using System.IO;
+using System.Globalization;
 
 
 namespace AIMS
 {
-    internal class AlcoholType
-    {
-        private string typeName;
+    class AlcoholType
+    {        
         public string TypeName
         {
             get
             {
-                return typeName;
+                return TypeName;
             }
             set
             {
                 TypeName = value;
             }
-        }   
-        //public static void ListOfTypes(SortedSet<string> set)
-        //{
-
-        //    string set1 = string.Join(",", set);
-        //    Console.WriteLine(set1);
-        //    Console.ReadLine();
-        //}
+        }          
 
         public void ListOfTypes(SortedSet<string> typeNames)
         {
             foreach (string typeName in typeNames)
             {
-                return; Console.WriteLine(typeName);
+                Console.WriteLine(typeName);
             }
             Console.ReadLine();
         }
