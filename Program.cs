@@ -14,31 +14,85 @@ namespace AIMS
         static void Main(string[] args)
         {           
             Menu mainMenu = new Menu();            
-            mainMenu.Text = " Welcome to the Alcohol Inventory Managment System.\r\n Please Make a selection using the number keys.";
+            mainMenu.Text = " Welcome to the Alcohol Inventory Managment System.";
+
+            Option inventoryOption = new Option();
+            inventoryOption.Description = "Inventory";
+            inventoryOption.Action = () =>
+            {
+
+            };            
+            Option addOption = new Option();
+            addOption.Description = "Add";
+            addOption.Action = () =>
+            {
+                Menu addMenu = new Menu();
+                addMenu.Text = "Would you like to add a Product or Category?";
+                Option addProduct = new Option();
+                Option addCategory = new Option();
+            };
+            Option removeOption = new Option();
+            removeOption.Description = "Remove";
+            removeOption.Action = () =>
+            {
+                Menu removeMenu = new Menu();
+                removeMenu.Text = "Would you like to remove a Product or Category?";
+                Option removeProduct = new Option();
+                Option removeCategory = new Option();
+            };
+            Option editOption = new Option();
+            editOption.Description = "Edit";
+            editOption.Action = () =>
+            {
+
+            };
+            Option reportOption = new Option();
+            reportOption.Description = "Report";
+            reportOption.Action = () =>
+            {
+
+            };
             Option exitOption = new Option();
             exitOption.Description = "Exit";
-            exitOption.Action = () => 
+            exitOption.Action = () =>
             {
                 Menu exitMenu = new Menu();
                 exitMenu.Text = "Are you sure you want to exit?";
                 Option exitYes = new Option();
-                exitYes.
-                Option exitNo = new Option();
-                Console.Clear();
-                MenuLoop.WriteLogo();
-                Console.WriteLine("Are you sure you want to exit?\r\n1.) Yes\r\n2.) No");
-                string Exit = Console.ReadLine();
-                if (Exit == "1")
+                exitYes.Action = () =>
                 {
                     Environment.Exit(0);
-                }
-                else if (Exit == "2")
+                };
+                Option exitNo = new Option();
+                exitNo.Action = () =>
                 {
                     mainMenu.Start();
-                }                
+                };
+
+                //    Console.Clear();
+                //    MenuLoop.WriteLogo();
+                //    Console.WriteLine("Are you sure you want to exit?\r\n1.) Yes\r\n2.) No");
+                //    string Exit = Console.ReadLine();
+                //    if (Exit == "1")
+                //    {
+                //        Environment.Exit(0);
+                //    }
+                //    else if (Exit == "2")
+                //    {
+                //        mainMenu.Start();
+                //    }                
             };
-            List<Option> options = new List<Option>();
+
+
+            List <Option> options = new List<Option>();
+            options.Add(inventoryOption);
+            options.Add(addOption);
+            options.Add(removeOption);
+            options.Add(editOption);
+            options.Add(reportOption);
             options.Add(exitOption);
+
+
             mainMenu.Options = options;
             mainMenu.Start();
 

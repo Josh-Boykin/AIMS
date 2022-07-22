@@ -37,6 +37,7 @@ namespace AIMS
             {
                 Console.Write(i++ + ".) ");
                 option.Display();
+                Console.Write("\r\n"); // is there a better way to make options display vertically?
             }            
         }
         public void Start()
