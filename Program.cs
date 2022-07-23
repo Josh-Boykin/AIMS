@@ -12,66 +12,67 @@ namespace AIMS
     class Program
     {
         static void Main(string[] args)
-        {           
-            Menu mainMenu = new Menu();            
+        {
+            Menu mainMenu = new Menu();
             mainMenu.Text = " Welcome to the Alcohol Inventory Managment System.";
 
-            Option inventoryOption = new Option();
-            inventoryOption.Description = "Inventory";
-            inventoryOption.Action = () =>
-            {
+            Option returnToMainMenuOption = new Option("Return to main menu",() => mainMenu.Start());
 
-            };            
-            Option addOption = new Option();
-            addOption.Description = "Add";
-            addOption.Action = () =>
-            {
-                Menu addMenu = new Menu();
-                addMenu.Text = "Would you like to add a Product or Category?";
-                Option addProduct = new Option();
-                Option addCategory = new Option();
-            };
-            Option removeOption = new Option();
-            removeOption.Description = "Remove";
-            removeOption.Action = () =>
-            {
-                Menu removeMenu = new Menu();
-                removeMenu.Text = "Would you like to remove a Product or Category?";
-                Option removeProduct = new Option();
-                Option removeCategory = new Option();
-            };
-            Option editOption = new Option();
-            editOption.Description = "Edit";
-            editOption.Action = () =>
-            {
-
-            };
-            Option reportOption = new Option();
-            reportOption.Description = "Report";
-            reportOption.Action = () =>
-            {
-
-            };
-            Option exitOption = new Option();
-            exitOption.Description = "Exit";
-            exitOption.Action = () =>
-            {
-
-                Menu exitMenu = new Menu();
-                exitMenu.Text = "Are you sure you want to exit?";
-                Option exitYes = new Option();
-                exitYes.Description = "Yes";
-                exitYes.Action = () => Environment.Exit(0);
-                Option exitNo = new Option();
-                exitNo.Description = "No";
-                exitNo.Action = () => mainMenu.Start();
-                List<Option> exitOptions = new List<Option>();
-                exitOptions.Add(exitYes);
-                exitOptions.Add(exitNo);
-                exitMenu.Options = exitOptions;
-                exitMenu.Start();
-            };
-            List <Option> options = new List<Option>();
+            Option inventoryOption = new Option("Inventory", () => { });
+            Option addOption = new Option
+            (
+                "Add",
+                () =>
+                {
+                    Menu addMenu = new Menu
+                    (
+                        "Would you like to add a Product or Category?",
+                        new List<Option>()
+                        {
+                            new Option("Add Product", () => {}),
+                            new Option("Add Category", () => {}),
+                            returnToMainMenuOption
+                        }
+                    );
+                }
+            );
+            Option removeOption = new Option
+            (
+                "Remove",
+                () =>
+                {
+                    Menu removeMenu = new Menu
+                    (
+                        "Would you like to remove a Product or Category?",
+                        new List<Option>()
+                        {
+                            new Option("Remove Product", () => {}),
+                            new Option("Remove Category", () => {}),
+                            returnToMainMenuOption
+                        }
+                    );
+                }
+            );
+            Option editOption = new Option("Edit", () => { });
+            Option reportOption = new Option("Report", () => { });
+            Option exitOption = new Option
+            (
+                "Exit",
+                () =>
+                {
+                    Menu exitMenu = new Menu
+                    (
+                        "Are you sure you want to exit?",
+                        new List<Option>()
+                        {
+                            new Option("Yes",() => Environment.Exit(0)),
+                            new Option("No",() => mainMenu.Start())
+                        }
+                    );
+                    exitMenu.Start();
+                }
+            );
+            List<Option> options = new List<Option>();
             options.Add(inventoryOption);
             options.Add(addOption);
             options.Add(removeOption);
@@ -86,13 +87,13 @@ namespace AIMS
             //var reader = new StreamReader(@"C:\Users\Boomb\source\repos\AIMS\AIMS_Repository.csv"); //can put inside a using case
             //var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture); // can put inside a using case
             //var records = csvReader.GetRecords<dynamic>().ToList();
-           
+
             //var writer = new StreamWriter(@"C:\Users\Boomb\source\repos\AIMS\AIMS_Repository.csv"); //can put inside a using case
             //var csvwriter = new CsvWriter(writer, CultureInfo.InvariantCulture); // can put inside a using case
             //csvwriter.WriteRecords(records);
 
             string newline = System.Environment.NewLine;
-            
+
             AlcoholType addName = new AlcoholType();
             SortedSet<string> typeName = new SortedSet<string>()
             {
@@ -282,19 +283,19 @@ namespace AIMS
     }
 }
 
-            /*
-           Console.WriteLine("Enter name of new product.");
-           Product P1 = new Product();
-           P1.Name = Console.Readline();
-           Console.ReadLine(ProductName.Name);
-           Console.WriteLine("Enter value of price per unit.");
-           */
+/*
+Console.WriteLine("Enter name of new product.");
+Product P1 = new Product();
+P1.Name = Console.Readline();
+Console.ReadLine(ProductName.Name);
+Console.WriteLine("Enter value of price per unit.");
+*/
 
-           
-        
-       
-        
-    
+
+
+
+
+
 
 
 
