@@ -18,7 +18,23 @@ namespace AIMS
 
             Option returnToMainMenuOption = new Option("Return to main menu",() => mainMenu.Start());
 
-            Option inventoryOption = new Option("Inventory", () => { });
+            Option inventoryOption = new Option
+            (
+                "Inventory",
+                () => 
+                {
+                    Menu inventoryMenu = new Menu
+                    (
+                        "Inventory: Please select an option.",
+                        new List<Option>()
+                        {
+                            new Option("Select Category",() => {}), //TODO: add dynamic menu for alcohol types
+                            returnToMainMenuOption
+                        }
+                    );                
+                }
+            
+            );
             Option addOption = new Option
             (
                 "Add",
@@ -29,8 +45,8 @@ namespace AIMS
                         "Would you like to add a Product or Category?",
                         new List<Option>()
                         {
-                            new Option("Add Product", () => {}),
-                            new Option("Add Category", () => {}),
+                            new Option("Add Product", () => {}), //TODO: add dynamic menu for categories to add new product to
+                            new Option("Add Category", () => {}),//TODO: create new category
                             returnToMainMenuOption
                         }
                     );
@@ -46,15 +62,32 @@ namespace AIMS
                         "Would you like to remove a Product or Category?",
                         new List<Option>()
                         {
-                            new Option("Remove Product", () => {}),
-                            new Option("Remove Category", () => {}),
+                            new Option("Remove Product", () => {}),//TODO: Select category menu for add/remove product, add warnings
+                            new Option("Remove Category", () => {}),//TODO: Remove existing category, add warnings( deletes all inside category)
                             returnToMainMenuOption
                         }
                     );
                 }
             );
-            Option editOption = new Option("Edit", () => { });
-            Option reportOption = new Option("Report", () => { });
+            Option editOption = new Option
+            (
+                "Edit",
+                () =>
+                {
+                    Menu editMenu = new Menu
+                    (
+                        "Edit: What would you like to change?",
+                        new List<Option>()
+                        {
+                            new Option("Category", () => {}),//TODO: create dynamic list of categories
+                            new Option("Product", () => {}),//TODO: create dynamic list of products. select product -> change name or price?
+                            new Option("Product Price", () => {}),
+                            returnToMainMenuOption
+                        }
+                    );
+                }                
+            );
+            Option reportOption = new Option("Report", () => { });//TODO: Show total values of each categories
             Option exitOption = new Option
             (
                 "Exit",

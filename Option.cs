@@ -10,7 +10,7 @@ namespace AIMS
             this.Action = Action;
             this.Description = Description;
         }
-
+        
         public Option() { }
 
         public string Description { get; set; }
