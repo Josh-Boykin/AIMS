@@ -13,6 +13,8 @@ namespace AIMS
     {
         static void Main(string[] args)
         {
+            List<AlcoholType> categories = new List<AlcoholType>(); // TODO: Read categories from save file
+            List<Product> products = new List<Product>();//TODO: Read products from save file
             Menu mainMenu = new Menu();
             mainMenu.Text = " Welcome to the Alcohol Inventory Managment System.";
 
@@ -46,7 +48,7 @@ namespace AIMS
                         new List<Option>()
                         {
                             new Option("Add Product", () => {}), //TODO: add dynamic menu for categories to add new product to
-                            new Option("Add Category", () => {}),//TODO: create new category
+                            new Option("Add Category", () => addCategory()),//TODO: create new category
                             returnToMainMenuOption
                         }
                     );
@@ -312,7 +314,29 @@ namespace AIMS
 
             Console.WriteLine($"Product Name: {bottle.Name}\nProduct Price: ${bottle.Price}\nAmount of Inventory: {Quantity}\nValue of Inventory: ${QuantityPrice}");
             Console.ReadLine();*/
+            void addCategory() 
+            {
+                Console.WriteLine("Input a name for your category");
+                string userInput;
+                try
+                {
+
+                    userInput = Console.ReadLine();
+                    AlcoholType category = new AlcoholType();
+                    category.TypeName = userInput;
+                    categories.Add(category);
+                }
+                catch
+                {
+                    Console.WriteLine("There was an error with your input. Press any key to continue.");
+                    Console.ReadKey();
+                    mainMenu.Start();
+
+                }                
+            }
         }
+
+        
     }
 }
 
