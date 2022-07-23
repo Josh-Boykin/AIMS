@@ -56,34 +56,21 @@ namespace AIMS
             exitOption.Description = "Exit";
             exitOption.Action = () =>
             {
+
                 Menu exitMenu = new Menu();
                 exitMenu.Text = "Are you sure you want to exit?";
                 Option exitYes = new Option();
-                exitYes.Action = () =>
-                {
-                    Environment.Exit(0);
-                };
+                exitYes.Description = "Yes";
+                exitYes.Action = () => Environment.Exit(0);
                 Option exitNo = new Option();
-                exitNo.Action = () =>
-                {
-                    mainMenu.Start();
-                };
-
-                //    Console.Clear();
-                //    MenuLoop.WriteLogo();
-                //    Console.WriteLine("Are you sure you want to exit?\r\n1.) Yes\r\n2.) No");
-                //    string Exit = Console.ReadLine();
-                //    if (Exit == "1")
-                //    {
-                //        Environment.Exit(0);
-                //    }
-                //    else if (Exit == "2")
-                //    {
-                //        mainMenu.Start();
-                //    }                
+                exitNo.Description = "No";
+                exitNo.Action = () => mainMenu.Start();
+                List<Option> exitOptions = new List<Option>();
+                exitOptions.Add(exitYes);
+                exitOptions.Add(exitNo);
+                exitMenu.Options = exitOptions;
+                exitMenu.Start();
             };
-
-
             List <Option> options = new List<Option>();
             options.Add(inventoryOption);
             options.Add(addOption);
