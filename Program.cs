@@ -57,9 +57,21 @@ namespace AIMS
                     Option option = new Option();
                     option.Description = category.TypeName;
                     optionList.Add(option);
+                    option.Action = () =>
+                    {
+                        Console.WriteLine("What is the name of your product?");// add way to test 
+                        var name = Console.ReadLine(); 
+                        Console.WriteLine();
+                        Console.WriteLine("What is the cost of the product?");                        
+                        decimal price = Convert.ToDecimal(Console.ReadLine());
+                        category.AddProduct(name,price);
+
+                    };
+                    
                 }
                 Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
                 categorySelectMenu.Start();
+                
             }
             void startMainMenu()
             {
@@ -103,14 +115,14 @@ namespace AIMS
                     }
                 ).Start();
             }
-            void startInventoryMenu()
+            void startInventoryMenu() //TODO: add dynamic menu for alcohol types. look at addproduct menu but deeper
             {
                  new Menu
                 (
                     "Inventory: Please select an option.",
                     new List<Option>()
                     {
-                        new Option("Select Category",() => {}), //TODO: add dynamic menu for alcohol types
+                        new Option("Select Category",() => {}), 
                         returnToMainMenuOption
                     }
                 ).Start();
@@ -156,9 +168,9 @@ namespace AIMS
                 ).Start();
             }
 
-        }
+        }// show list of products. similar to option list
 
-        
+
     }
 }
 
