@@ -5,3 +5,4 @@ AIMS.csproj*
 obj* 
 bin*
 app.config
+MigrationBackup*
