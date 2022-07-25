@@ -1,7 +1,7 @@
 ﻿# ignore visual studio files #
 .vs*
 AIMS.csproj*
-AIMS.sln 
+# AIMS.sln 
 obj* 
 bin*
 app.config

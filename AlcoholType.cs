@@ -6,25 +6,40 @@ using System.Threading.Tasks;
 using CsvHelper;
 using System.IO;
 using System.Globalization;
-
-
+using System.ComponentModel;
 namespace AIMS
 {
     class AlcoholType
-    {        
-        public string TypeName
+    {
+        [DefaultValue("DefaultName")]
+        public string TypeName { get; set; }
+        //{
+        //    get
+        //    {
+        //        return TypeName;
+        //    }
+        //    set
+        //    {
+        //        try
+        //        {
+        //            TypeName = value;
+        //        }
+        //        catch (StackOverflowException e)
+        //        {
+        //            Console.WriteLine("The user input overflowed");
+        //            Console.WriteLine("value =" + value);
+        //            Console.WriteLine("TypeName =" + TypeName);
+        //            Console.WriteLine(e.Message);
+        //        }
+        //    }
+        //}
+        List<Product> products = new List<Product>();
+        public void setTypeName(string TypeName)
         {
-            get
-            {
-                return TypeName;
-            }
-            set
-            {
-                TypeName = value;
-            }
-        }          
-
-        public void ListOfTypes(SortedSet<string> typeNames)
+            this.TypeName = TypeName;
+        }
+        
+        public static void ListOfTypes(SortedSet<string> typeNames)
         {
             foreach (string typeName in typeNames)
             {
@@ -33,20 +48,33 @@ namespace AIMS
             Console.ReadLine();
         }
 
-        public void AddProduct(string addName, float addPrice)
+        public void AddProduct(string addName, decimal addPrice)
         {
-            addName = addName.ToLower();
-
-            // create a new product based off my parameters
-            // add product to list
+            Product product = new Product();
+            product.Name = addName;
+            product.Price = addPrice;
+            products.Add(product);
         }
-        public void RemoveProduct(string removeName, float removePrice) 
+        public void RemoveProduct(string removeName) 
         {
-
+            foreach (Product product in products)
+            {
+                if (product.Name == removeName)
+                {
+                    products.Remove(product);
+                }
+            }
         }
-        public void EditProduct(string editName, float editPrice)
+        public void EditProduct( string previousName, string editName, decimal editPrice)
         {
-
+            foreach (Product product in products)
+            {
+                if (product.Name == previousName)
+                {
+                    product.Name = editName;
+                    product.Price = editPrice;
+                }
+            }
         }
     }
 }
