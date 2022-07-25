@@ -32,7 +32,7 @@ namespace AIMS
                 Name = value;
             }
         }
-        public decimal Price  // property
+        public decimal Price  
         {
             get
             {
@@ -62,7 +62,7 @@ namespace AIMS
                     throw new ArgumentException();
                 }
                 Quantity = Convert.ToDecimal(value);
-                Math.Round(value, 2); //check to see if this is working
+                Math.Round(value, 2); 
             }
         }
         public decimal QuantityPrice
@@ -74,17 +74,8 @@ namespace AIMS
             set
             {
                 Decimal QuantityPrice = Decimal.Multiply(Price, Quantity);
-            }
-            
-        }
-        public void SetName()
-        {
-            return; //is this right?
-        }
-        public void SetPrice() 
-        {
-            return;
-        }
+            }            
+        }        
         public override string ToString() => $"Product Name:{Name}\n Product Price:{Price}\nAmount of Inventory:{Quantity}\nValue of Inventory{QuantityPrice}";
     }
 }

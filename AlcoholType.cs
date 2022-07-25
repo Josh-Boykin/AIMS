@@ -10,29 +10,9 @@ using System.ComponentModel;
 namespace AIMS
 {
     class AlcoholType
-    {
-        [DefaultValue("DefaultName")]
+    {        
         public string TypeName { get; set; }
-        //{
-        //    get
-        //    {
-        //        return TypeName;
-        //    }
-        //    set
-        //    {
-        //        try
-        //        {
-        //            TypeName = value;
-        //        }
-        //        catch (StackOverflowException e)
-        //        {
-        //            Console.WriteLine("The user input overflowed");
-        //            Console.WriteLine("value =" + value);
-        //            Console.WriteLine("TypeName =" + TypeName);
-        //            Console.WriteLine(e.Message);
-        //        }
-        //    }
-        //}
+
         List<Product> products = new List<Product>();
         public void setTypeName(string TypeName)
         {
