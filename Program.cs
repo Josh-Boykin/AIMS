@@ -3,7 +3,7 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CsvHelper;
+//using CsvHelper;
 using System.IO;
 using System.Globalization;
 
@@ -38,7 +38,7 @@ namespace AIMS
 
                     userInputC = Console.ReadLine();
                     AlcoholType category = new AlcoholType();
-                    category.setTypeName(userInputC);
+                    category.TypeName = userInputC;
                     categories.Add(category);
                 }
                 catch
@@ -107,7 +107,7 @@ namespace AIMS
                         Console.WriteLine("What is the cost of the product?");
                         decimal Price = Convert.ToDecimal(Console.ReadLine());
                         category.AddProduct(Name, Price);
-
+                        startMainMenu();
                     };
 
                 }

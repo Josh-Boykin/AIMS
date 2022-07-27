@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CsvHelper;
+//using CsvHelper;
 using System.IO;
 using System.Globalization;
 
 namespace AIMS
 {
     class Product
-    {        
+    {
+        private string name;
         public string Name
         {
             get
             {
-                return Name;
+                return name;
             }
             set
             {
@@ -33,18 +34,15 @@ namespace AIMS
                 //{
                 //    throw new OverflowException("Overflowed"); //***************************************
                 //}
-                Name = value;
+                name = value;
             }
         }
-        public void setName(string Name) // **************************
-        {
-            this.Name = Name;
-        }
+        private decimal price;
         public decimal Price  
         {
             get
             {
-                return Price;
+                return price;
             }
             set
             {
@@ -52,19 +50,15 @@ namespace AIMS
                 {
                     throw new ArgumentException();
                 }
-                Price = Math.Round(value, 2);
+                price = Math.Round(value, 2);
             }
         }
-        public void setPrice(decimal Price) // **************************
-        {
-            this.Price = Price;
-        }
-
+        private decimal quantity;
         public decimal Quantity
         {
             get
             {
-                return Quantity;
+                return quantity;
             }
             set
             {
@@ -72,22 +66,22 @@ namespace AIMS
                 {
                     throw new ArgumentException();
                 }
-                Quantity = Convert.ToDecimal(value);
-                Math.Round(value, 2); 
+                quantity = Math.Round(Convert.ToDecimal(value), 2);                
             }
         }
+        private decimal quantityPrice;
         public decimal QuantityPrice
         {
             get
             {
-                return QuantityPrice;
+                return quantityPrice;
             }
             set
             {
-                Decimal QuantityPrice = Decimal.Multiply(Price, Quantity);
+                Decimal quantityPrice = Decimal.Multiply(price, quantity);
             }            
         }        
-        public override string ToString() => $"Product Name:{Name}\n Product Price:{Price}\nAmount of Inventory:{Quantity}\nValue of Inventory{QuantityPrice}";
+        public override string ToString() => $"Product Name:{name}\n Product Price:{price}\nAmount of Inventory:{quantity}\nValue of Inventory{quantityPrice}";
     }
 }
     

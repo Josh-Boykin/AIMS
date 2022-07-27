@@ -17,8 +17,12 @@ namespace AIMS
 
         public Menu() { }
 
+        private string text;
         public string Text { get; set; }
+
+        private List<Option> options;
         public List<Option> Options { get; set; }
+
         public void DisplayText()
         {
             Console.WriteLine(Text);

@@ -3,22 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CsvHelper;
+//using CsvHelper;
 using System.IO;
 using System.Globalization;
 using System.ComponentModel;
 namespace AIMS
 {
     class AlcoholType
-    {        
+    {
+        private string typeName;
         public string TypeName { get; set; }
 
         List<Product> products = new List<Product>();
-        public void setTypeName(string TypeName)
-        {
-            this.TypeName = TypeName;
-        }
-        
+  
         public static void ListOfTypes(SortedSet<string> typeNames)
         {
             foreach (string typeName in typeNames)
