@@ -9,7 +9,7 @@ namespace AIMS
     internal class Menu
     {
 
-        public Menu(string Text, List<Option> Options)
+        public Menu(string Text, List<Option> Options) // returnToMainMenuOption here?
         {
             this.Text = Text;
             this.Options = Options;

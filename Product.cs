@@ -29,8 +29,16 @@ namespace AIMS
                 {
                     throw new ArgumentOutOfRangeException(" over 20 characters is not allowed for product name.");
                 }
+                //else if
+                //{
+                //    throw new OverflowException("Overflowed"); //***************************************
+                //}
                 Name = value;
             }
+        }
+        public void setName(string Name) // **************************
+        {
+            this.Name = Name;
         }
         public decimal Price  
         {
@@ -47,7 +55,10 @@ namespace AIMS
                 Price = Math.Round(value, 2);
             }
         }
-
+        public void setPrice(decimal Price) // **************************
+        {
+            this.Price = Price;
+        }
 
         public decimal Quantity
         {

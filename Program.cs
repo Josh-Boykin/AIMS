@@ -15,6 +15,7 @@ namespace AIMS
         {
             List<AlcoholType> categories = new List<AlcoholType>(); // TODO: Read categories from save file
             string newline = System.Environment.NewLine;
+            List<Product> products = new List<Product>();
             //var reader = new StreamReader(@"C:\Users\Boomb\source\repos\AIMS\AIMS_Repository.csv"); //can put inside a using case
             //var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture); // can put inside a using case
             //var records = csvReader.GetRecords<dynamic>().ToList();
@@ -31,13 +32,13 @@ namespace AIMS
             void addCategory()
             {
                 Console.WriteLine("Input a name for your category");
-                string userInput = string.Empty;
+                string userInputC = string.Empty;
                 try
                 {
 
-                    userInput = Console.ReadLine();
+                    userInputC = Console.ReadLine();
                     AlcoholType category = new AlcoholType();
-                    category.setTypeName(userInput);
+                    category.setTypeName(userInputC);
                     categories.Add(category);
                 }
                 catch
@@ -49,6 +50,47 @@ namespace AIMS
                 }
                 startMainMenu();
             }
+            //void addProduct() //  ******************************************
+            //{
+            //    List<Option> optionList = new List<Option>();
+            //    foreach (AlcoholType category in categories)
+            //    {
+            //        Console.WriteLine("What is the name of your product?");// add way to test 
+            //        string userInputPN = string.Empty;
+            //        Product product = new Product();
+
+            //        try
+            //        {                        
+
+            //            product.setName(Console.ReadLine());
+
+            //        }
+            //        catch
+            //        {
+            //            Console.WriteLine("There was an error with your input. Press any key to continue.");
+            //            Console.ReadKey();
+            //            startMainMenu();
+            //        }
+            //        Console.WriteLine("What is the Price of your product?");// add way to test 
+            //        string userInputPP = string.Empty;
+            //        try
+            //        {
+            //            userInputPP = Console.ReadLine();
+
+            //            decimal Price = Convert.ToDecimal(userInputPP);
+            //            category.AddProduct(Name, Price);
+            //        }
+            //        catch
+            //        {
+            //            Console.WriteLine("There was an error with your input. Press any key to continue.");
+            //            Console.ReadKey();
+            //            startMainMenu();
+            //        }
+            //        Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
+            //        categorySelectMenu.Start();
+
+            //    }
+            //}
             void addProduct()
             {
                 List<Option> optionList = new List<Option>();
@@ -56,23 +98,51 @@ namespace AIMS
                 {
                     Option option = new Option();
                     option.Description = category.TypeName;
-                    optionList.Add(option);
+                    optionList.Add(option); // setName ********************
                     option.Action = () =>
                     {
                         Console.WriteLine("What is the name of your product?");// add way to test 
-                        var name = Console.ReadLine(); 
+                        string Name = Console.ReadLine();
                         Console.WriteLine();
-                        Console.WriteLine("What is the cost of the product?");                        
-                        decimal price = Convert.ToDecimal(Console.ReadLine());
-                        category.AddProduct(name,price);
+                        Console.WriteLine("What is the cost of the product?");
+                        decimal Price = Convert.ToDecimal(Console.ReadLine());
+                        category.AddProduct(Name, Price);
 
                     };
-                    
+
                 }
                 Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
                 categorySelectMenu.Start();
-                
+
             }
+            void listCategories() // *****************************
+            {
+                List<Option> optionList = new List<Option>();
+                foreach (AlcoholType category in categories)
+                {
+                    Option option = new Option();
+                    option.Description = category.TypeName;
+                    optionList.Add(option);
+                    option.Action = () => listProducts();
+     
+                };
+                Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
+                categorySelectMenu.Start();
+            }
+            void listProducts() // **********************************
+            {
+                List<Option> productOptionList = new List<Option>();
+                foreach (Product product in products)
+                {
+                    Option option = new Option();
+                    option.Description = product.Name;
+                    productOptionList.Add(option);
+                    option.Action = () => { };
+                }
+                Menu productSelectMenu = new Menu("Choose from an existing list of products.", productOptionList);
+                productSelectMenu.Start();
+            }
+
             void startMainMenu()
             {
                 new Menu
@@ -122,7 +192,7 @@ namespace AIMS
                     "Inventory: Please select an option.",
                     new List<Option>()
                     {
-                        new Option("Select Category",() => {}), 
+                        new Option("Select Category",() => listCategories()),
                         returnToMainMenuOption
                     }
                 ).Start();
@@ -167,6 +237,7 @@ namespace AIMS
                     }
                 ).Start();
             }
+            
 
         }// show list of products. similar to option list
 
