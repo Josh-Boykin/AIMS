@@ -15,7 +15,7 @@ namespace AIMS
         {
             List<AlcoholType> categories = new List<AlcoholType>(); // TODO: Read categories from save file
             string newline = System.Environment.NewLine;
-            List<Product> products = new List<Product>();
+            //List<Product> products = new List<Product>();
             //var reader = new StreamReader(@"C:\Users\Boomb\source\repos\AIMS\AIMS_Repository.csv"); //can put inside a using case
             //var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture); // can put inside a using case
             //var records = csvReader.GetRecords<dynamic>().ToList();
@@ -50,47 +50,7 @@ namespace AIMS
                 }
                 startMainMenu();
             }
-            //void addProduct() //  ******************************************
-            //{
-            //    List<Option> optionList = new List<Option>();
-            //    foreach (AlcoholType category in categories)
-            //    {
-            //        Console.WriteLine("What is the name of your product?");// add way to test 
-            //        string userInputPN = string.Empty;
-            //        Product product = new Product();
 
-            //        try
-            //        {                        
-
-            //            product.setName(Console.ReadLine());
-
-            //        }
-            //        catch
-            //        {
-            //            Console.WriteLine("There was an error with your input. Press any key to continue.");
-            //            Console.ReadKey();
-            //            startMainMenu();
-            //        }
-            //        Console.WriteLine("What is the Price of your product?");// add way to test 
-            //        string userInputPP = string.Empty;
-            //        try
-            //        {
-            //            userInputPP = Console.ReadLine();
-
-            //            decimal Price = Convert.ToDecimal(userInputPP);
-            //            category.AddProduct(Name, Price);
-            //        }
-            //        catch
-            //        {
-            //            Console.WriteLine("There was an error with your input. Press any key to continue.");
-            //            Console.ReadKey();
-            //            startMainMenu();
-            //        }
-            //        Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
-            //        categorySelectMenu.Start();
-
-            //    }
-            //}
             void addProduct()
             {
                 List<Option> optionList = new List<Option>();
@@ -98,7 +58,7 @@ namespace AIMS
                 {
                     Option option = new Option();
                     option.Description = category.TypeName;
-                    optionList.Add(option); // setName ********************
+                    optionList.Add(option);
                     option.Action = () =>
                     {
                         Console.WriteLine("What is the name of your product?");// add way to test 
@@ -109,40 +69,87 @@ namespace AIMS
                         category.AddProduct(Name, Price);
                         startMainMenu();
                     };
-
+                    
                 }
                 Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
                 categorySelectMenu.Start();
 
             }
-            void listCategories() // *****************************
+            void removeProduct()
             {
+                try
+                {
+                    List<Option> optionList = new List<Option>();
+                    foreach (AlcoholType category in categories)
+                    {
+                        Option option = new Option();
+                        option.Description = category.TypeName;
+                        optionList.Add(option);
+                        option.Action = () =>
+                        {
+
+                            List<Option> productOptionList = new List<Option>();
+                            foreach (Product product in category.Products)
+                            {
+                                Option option = new Option();
+                                option.Description = product.Name;
+                                productOptionList.Add(option);
+                                option.Action = () =>
+                                {
+                                    new Menu
+                                    (
+                                        "Are you sure? This will permanently delete the product.",
+                                        new List<Option>()
+                                        {
+                                        new Option("Delete Product", () => category.Products.Remove(product)),
+                                        returnToMainMenuOption
+
+                                        }
+                                    ).Start();
+                                };
+
+                            }
+                            Menu productSelectMenu = new Menu("Choose from an existing list of products.", productOptionList);
+                            productSelectMenu.Start();
+
+                        };
+
+                    }
+                    Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
+                    categorySelectMenu.Start();
+                }
+                finally { startMainMenu(); }
+            }
+
+            void removeCategory()
+            {
+                try { 
                 List<Option> optionList = new List<Option>();
                 foreach (AlcoholType category in categories)
                 {
                     Option option = new Option();
                     option.Description = category.TypeName;
                     optionList.Add(option);
-                    option.Action = () => listProducts();
-     
-                };
-                Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
-                categorySelectMenu.Start();
-            }
-            void listProducts() // **********************************
-            {
-                List<Option> productOptionList = new List<Option>();
-                foreach (Product product in products)
-                {
-                    Option option = new Option();
-                    option.Description = product.Name;
-                    productOptionList.Add(option);
-                    option.Action = () => { };
+                    option.Action = () =>
+                    {
+                        new Menu
+                        (
+                            "Are you sure? This will permanently delete all products added inside this\r\n" +
+                            "category as well as the category.",
+                            new List<Option>()
+                            {
+                                new Option("Delete Category and all products connected.", () => categories.Remove(category)),
+                                returnToMainMenuOption
+                            }
+                        ).Start();                        
+                    };
+                    
                 }
-                Menu productSelectMenu = new Menu("Choose from an existing list of products.", productOptionList);
-                productSelectMenu.Start();
+                Menu productSelectMenu = new Menu("Choose from an existing list of Categories.", optionList);
+                productSelectMenu.Start();}
+                finally { startMainMenu(); }
             }
-
+            
             void startMainMenu()
             {
                 new Menu
@@ -172,19 +179,20 @@ namespace AIMS
                     }
                 ).Start();
             }
-            void startRemoveMenu()
+            void startRemoveMenu() 
             {
                 new Menu
                 (
                     "Would you like to remove a Product or Category?",
                     new List<Option>()
                     {
-                        new Option("Remove Product", () => {}),//TODO: Select category menu for add/remove product, add warnings
-                        new Option("Remove Category", () => {}),//TODO: Remove existing category, add warnings( deletes all inside category)
+                        new Option("Remove Product", () => removeProduct()),
+                        new Option("Remove Category", () => removeCategory()),
                         returnToMainMenuOption
                     }
                 ).Start();
             }
+            
             void startInventoryMenu() //TODO: add dynamic menu for alcohol types. look at addproduct menu but deeper
             {
                  new Menu
@@ -192,12 +200,67 @@ namespace AIMS
                     "Inventory: Please select an option.",
                     new List<Option>()
                     {
-                        new Option("Select Category",() => listCategories()),
+                        new Option("Select Category",() => addQuantity()),
                         returnToMainMenuOption
                     }
                 ).Start();
+            }startMainMenu();
+            void ListOfCategories() //**************************
+            {
+                List<Option> optionList = new List<Option>();
+                foreach (AlcoholType category in categories)
+                {
+                    Option option = new Option();
+                    option.Description = category.TypeName;
+                    optionList.Add(option);
+                    option.Action = () => { };
+                }
+                Menu productSelectMenu = new Menu("Choose from an existing list of products.", optionList);
+                productSelectMenu.Start();
             }
-            void startEditMenu()
+            void addQuantity()
+            {
+                try
+                {
+                    List<Option> optionList = new List<Option>();
+                    foreach (AlcoholType category in categories)
+                    {
+                        Option option = new Option();
+                        option.Description = category.TypeName;
+                        optionList.Add(option);                        
+                        option.Action = () =>
+                        {
+
+                            List<Option> productOptionList = new List<Option>();
+                            foreach (Product product in category.Products)
+                            {
+                                Option option = new Option();
+                                option.Description = product.Name;
+                                productOptionList.Add(option);
+                                option.Action = () =>
+                                {
+
+                                    Console.WriteLine("Enter the quantity of the product by tenths.");
+                                    decimal quantity = Convert.ToDecimal(Console.ReadLine());
+                                    addQuantity();
+                                    
+                                };
+
+                            }
+                            productOptionList.Add(returnToMainMenuOption);
+                            Menu productSelectMenu = new Menu("Choose from an existing list of products.", productOptionList);
+                            productSelectMenu.Start();
+                            
+                        };
+
+                    }
+                    optionList.Add(returnToMainMenuOption);
+                    Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
+                    categorySelectMenu.Start();
+                }
+                finally { startMainMenu(); }
+            }
+            void startEditMenu() //category.TypeName = Console.ReadLine();
             {
                 new Menu
                 (

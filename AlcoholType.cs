@@ -14,7 +14,9 @@ namespace AIMS
         private string typeName;
         public string TypeName { get; set; }
 
-        List<Product> products = new List<Product>();
+        
+        private List<Product> products = new List<Product>();
+        public List<Product> Products { get { return products; } }
   
         public static void ListOfTypes(SortedSet<string> typeNames)
         {
