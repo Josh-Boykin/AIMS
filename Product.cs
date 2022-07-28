@@ -29,11 +29,7 @@ namespace AIMS
                 else if (myString.Length > 20)
                 {
                     throw new ArgumentOutOfRangeException(" over 20 characters is not allowed for product name.");
-                }
-                //else if
-                //{
-                //    throw new OverflowException("Overflowed"); //***************************************
-                //}
+                }                
                 name = value;
             }
         }
@@ -66,7 +62,7 @@ namespace AIMS
                 {
                     throw new ArgumentException();
                 }
-                quantity = Math.Round(Convert.ToDecimal(value), 2);                
+                quantity = Math.Round((value), 2);                
             }
         }
         private decimal quantityPrice;
@@ -74,14 +70,9 @@ namespace AIMS
         {
             get
             {
-                return quantityPrice;
-            }
-            set
-            {
-                Decimal quantityPrice = Decimal.Multiply(price, quantity);
-            }            
-        }        
-        public override string ToString() => $"Product Name:{name}\n Product Price:{price}\nAmount of Inventory:{quantity}\nValue of Inventory{quantityPrice}";
+                return decimal.Multiply(price, quantity);                
+            }                     
+        }                
     }
 }
     

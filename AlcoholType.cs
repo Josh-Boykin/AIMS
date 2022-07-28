@@ -18,14 +18,6 @@ namespace AIMS
         private List<Product> products = new List<Product>();
         public List<Product> Products { get { return products; } }
   
-        public static void ListOfTypes(SortedSet<string> typeNames)
-        {
-            foreach (string typeName in typeNames)
-            {
-                Console.WriteLine(typeName);
-            }
-            Console.ReadLine();
-        }
 
         public void AddProduct(string addName, decimal addPrice)
         {

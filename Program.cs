@@ -61,7 +61,7 @@ namespace AIMS
                     optionList.Add(option);
                     option.Action = () =>
                     {
-                        Console.WriteLine("What is the name of your product?");// add way to test 
+                        Console.WriteLine("What is the name of your product?");
                         string Name = Console.ReadLine();
                         Console.WriteLine();
                         Console.WriteLine("What is the cost of the product?");
@@ -173,7 +173,7 @@ namespace AIMS
                     "Would you like to add a Product or Category?",
                     new List<Option>()
                     {
-                        new Option("Add Product", () => addProduct()), //TODO: add dynamic menu for categories to add new product to
+                        new Option("Add Product", () => addProduct()), 
                         new Option("Add Category", () => addCategory()),
                         returnToMainMenuOption
                     }
@@ -193,7 +193,7 @@ namespace AIMS
                 ).Start();
             }
             
-            void startInventoryMenu() //TODO: add dynamic menu for alcohol types. look at addproduct menu but deeper
+            void startInventoryMenu() 
             {
                  new Menu
                 (
@@ -205,19 +205,7 @@ namespace AIMS
                     }
                 ).Start();
             }startMainMenu();
-            void ListOfCategories() //**************************
-            {
-                List<Option> optionList = new List<Option>();
-                foreach (AlcoholType category in categories)
-                {
-                    Option option = new Option();
-                    option.Description = category.TypeName;
-                    optionList.Add(option);
-                    option.Action = () => { };
-                }
-                Menu productSelectMenu = new Menu("Choose from an existing list of products.", optionList);
-                productSelectMenu.Start();
-            }
+            
             void addQuantity()
             {
                 try
@@ -241,14 +229,14 @@ namespace AIMS
                                 {
 
                                     Console.WriteLine("Enter the quantity of the product by tenths.");
-                                    decimal quantity = Convert.ToDecimal(Console.ReadLine());
+                                    product.Quantity = Convert.ToDecimal(Console.ReadLine());
                                     addQuantity();
                                     
                                 };
 
                             }
                             productOptionList.Add(returnToMainMenuOption);
-                            Menu productSelectMenu = new Menu("Choose from an existing list of products.", productOptionList);
+                            Menu productSelectMenu = new Menu("Inventory: Choose from an existing list of products.", productOptionList);
                             productSelectMenu.Start();
                             
                         };
@@ -260,19 +248,114 @@ namespace AIMS
                 }
                 finally { startMainMenu(); }
             }
-            void startEditMenu() //category.TypeName = Console.ReadLine();
+            void startEditMenu() 
             {
                 new Menu
                 (
                     "Edit: What would you like to change?",
                     new List<Option>()
                     {
-                        new Option("Category", () => {}),//TODO: create dynamic list of categories
-                        new Option("Product", () => {}),//TODO: create dynamic list of products. select product -> change name or price?
-                        new Option("Product Price", () => {}),
+                        new Option("Category", () => categoryEdit()),
+                        new Option("Product", () => productEdit()),
+                        new Option("Product Price", () => priceEdit()),
                         returnToMainMenuOption
                     }
                 ).Start();
+            }
+            void categoryEdit()
+            {
+                try
+                {
+                    List<Option> optionList = new List<Option>();
+                    foreach (AlcoholType category in categories)
+                    {
+                        Option option = new Option();
+                        option.Description = category.TypeName;
+                        optionList.Add(option);
+                        option.Action = () =>
+                        {
+                            Console.WriteLine("What would you like to change the name to?");
+                            category.TypeName = Console.ReadLine();
+
+                        };
+                    }
+                    Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
+                    categorySelectMenu.Start();
+                } finally { startEditMenu(); }
+            }
+            void productEdit()
+            {
+                try
+                {
+                    List<Option> optionList = new List<Option>();
+                    foreach (AlcoholType category in categories)
+                    {
+                        Option option = new Option();
+                        option.Description = category.TypeName;
+                        optionList.Add(option);
+                        option.Action = () =>
+                        {
+
+                            List<Option> productOptionList = new List<Option>();
+                            foreach (Product product in category.Products)
+                            {
+                                Option option = new Option();
+                                option.Description = product.Name;
+                                productOptionList.Add(option);
+                                option.Action = () =>
+                                {
+                                    Console.WriteLine("What would you like to change the name to?");
+                                    product.Name = Console.ReadLine();
+                                };
+
+                            }
+                            Menu productSelectMenu = new Menu("Choose from an existing list of products.", productOptionList);
+                            productSelectMenu.Start();
+
+                        };
+
+                    }
+                    Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
+                    categorySelectMenu.Start();
+                }
+                finally { startEditMenu(); }
+            }
+            void priceEdit()
+            {
+                try
+                {
+                    List<Option> optionList = new List<Option>();
+                    foreach (AlcoholType category in categories)
+                    {
+                        Option option = new Option();
+                        option.Description = category.TypeName;
+                        optionList.Add(option);
+                        option.Action = () =>
+                        {
+
+                            List<Option> productOptionList = new List<Option>();
+                            foreach (Product product in category.Products)
+                            {
+                                Option option = new Option();
+                                option.Description = product.Name;
+                                productOptionList.Add(option);
+                                option.Action = () =>
+                                {
+                                    Console.WriteLine("What would you like to change the price to?");
+                                    product.Price = Convert.ToDecimal(Console.ReadLine());
+                                };
+
+                            }
+                            Menu productSelectMenu = new Menu("Choose from an existing list of products.", productOptionList);
+                            productSelectMenu.Start();
+
+                        };
+
+                    }
+                    Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
+                    categorySelectMenu.Start();
+                }
+                finally { startEditMenu(); }
             }
             void startReportMenu()
             {
@@ -281,12 +364,77 @@ namespace AIMS
                     "Report: What would you like to see?",
                     new List<Option>()
                     {
-                        new Option("Sample", () => {}),//TODO: add options for report list
-                        new Option("Sample 2", () => {}),
+                        new Option("Product and Price by Category", () => productPriceReport()),
+                        new Option("Total Inventory Value by Category ", () => valueReport()),
                         returnToMainMenuOption
                     }
 
                 ).Start();
+            }
+            void productPriceReport()
+            {
+                List<Option> optionList = new List<Option>();
+                foreach (AlcoholType category in categories)
+                {
+                    Option option = new Option();
+                    option.Description = category.TypeName;
+                    optionList.Add(option);
+                    option.Action = () =>
+                    {
+
+                        List<Option> productOptionList = new List<Option>();
+                        foreach (Product product in category.Products)
+                        {
+                            Option option = new Option();
+                            option.Description = product.Name + ", " + product.Price;
+                            productOptionList.Add(option);
+
+                        }
+                        productOptionList.Add(returnToMainMenuOption);
+                        Menu productSelectMenu = new Menu("Product names and cost per unit by category.", productOptionList);
+                        productSelectMenu.Start();
+
+                    };
+
+                }
+                Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
+                categorySelectMenu.Start();
+            }
+            void valueReport()
+            {
+                List<Option> optionList = new List<Option>();
+                foreach (AlcoholType category in categories)
+                {
+                    Option option = new Option();
+                    option.Description = category.TypeName;
+                    optionList.Add(option);
+                    option.Action = () =>
+                    {
+
+                        List<Option> productOptionList = new List<Option>();
+                        foreach (Product product in category.Products)
+                        {
+                            try
+                            {
+                                Option option = new Option();
+                                option.Description = "Name: " + product.Name + ", Inventory: " + product.Quantity + " units, Value: " + "$" + Math.Round((product.QuantityPrice), 2);
+                                productOptionList.Add(option);
+                            }
+                            catch (ArgumentException)
+                            {
+                                valueReport();
+                            }
+
+                        }
+                        productOptionList.Add(returnToMainMenuOption);
+                        Menu productSelectMenu = new Menu("Product name, Inventory and total value of Inventory.", productOptionList);
+                        productSelectMenu.Start();
+
+                    };
+
+                }
+                Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
+                categorySelectMenu.Start();
             }
             void startExitMenu()
             {
@@ -302,7 +450,7 @@ namespace AIMS
             }
             
 
-        }// show list of products. similar to option list
+        }
 
 
     }
