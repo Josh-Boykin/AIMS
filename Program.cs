@@ -3,30 +3,44 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-//using CsvHelper;
+using CsvHelper;
 using System.IO;
 using System.Globalization;
 
 namespace AIMS
 {
-    class Program
+    class Program // add comments to explain what you are doing on diff parts, clear excess
     {
         static void Main(string[] args)
-        {
-            List<AlcoholType> categories = new List<AlcoholType>(); // TODO: Read categories from save file
-            string newline = System.Environment.NewLine;
-            //List<Product> products = new List<Product>();
-            //var reader = new StreamReader(@"C:\Users\Boomb\source\repos\AIMS\AIMS_Repository.csv"); //can put inside a using case
-            //var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture); // can put inside a using case
-            //var records = csvReader.GetRecords<dynamic>().ToList();
+        {                       
+                List<AlcoholType> categories = new List<AlcoholType>();
+                string newline = System.Environment.NewLine;
 
-            //var writer = new StreamWriter(@"C:\Users\Boomb\source\repos\AIMS\AIMS_Repository.csv"); //can put inside a using case
-            //var csvwriter = new CsvWriter(writer, CultureInfo.InvariantCulture); // can put inside a using case
-            //csvwriter.WriteRecords(records);
+            void read()
+            { 
+                using (var reader = new StreamReader("AIMS_Repository.csv"))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    var records = csv.GetRecords<Product>();
+                }
+            }
+            
+            void save()
+            {
+                foreach (AlcoholType category in categories)
+                {
+                    using (var writer = new StreamWriter(category.TypeName + ".csv"))
+                    using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                    {
+                        csv.WriteRecords(category.Products);
+                    }
+                }
+
+            }
 
             Option returnToMainMenuOption = new Option();
             returnToMainMenuOption = new Option("Return to main menu", () => startMainMenu());
-
+            //read();
             startMainMenu();
 
             void addCategory()

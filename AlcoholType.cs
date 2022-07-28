@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using CsvHelper;
+using CsvHelper;
 using System.IO;
 using System.Globalization;
 using System.ComponentModel;
+using CsvHelper.Configuration.Attributes;
+
 namespace AIMS
 {
     class AlcoholType
     {
+        [Index(0)]
         private string typeName;
         public string TypeName { get; set; }
 
