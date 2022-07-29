@@ -25,6 +25,7 @@ namespace AIMS
                     using (var reader = new StreamReader( file ))
                     using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                     {
+                        csv.Context.RegisterClassMap<ProductMap>(); // registers mapping in the context
                         List<Product> records = csv.GetRecords<Product>().ToList();                       
                         AlcoholType category = new AlcoholType();                       
                         category.TypeName = file.Substring(15,file.Length - 19 ); // removing aims_csv_files\ & .csv from string (aims_csv_files\Bourbon.csv)                      
@@ -41,6 +42,7 @@ namespace AIMS
                     using (var writer = new StreamWriter(@"aims_csv_files\" + category.TypeName + ".csv"))
                     using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                     {
+                        csv.Context.RegisterClassMap<ProductMap>();// registers mapping in the context
                         csv.WriteRecords(category.Products);
                     }
                 }

@@ -35,7 +35,7 @@ Alcohol Inventory Managment System Project for Code Kentucky
 	
 ### Feature 4:
 	
-  - Create an additional class which inherits one or more properties from its parent
+  - Create an additional class which inherits one or more properties from its parent (Different feature from original project plan)
 	
   - If time permits, I plan to implement additional functionality such as a LINQ query and unit test as a stretch goal.
 ## Instructions For Use:

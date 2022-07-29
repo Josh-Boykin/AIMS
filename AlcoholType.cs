@@ -2,7 +2,7 @@
 {
     class AlcoholType
     {
-        //[Index(0)]
+        
         private string typeName;
         public string TypeName { get; set; }
 

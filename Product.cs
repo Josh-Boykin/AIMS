@@ -4,7 +4,7 @@ namespace AIMS
 {
     class Product
     {        
-        [Index(0)] // used to track .csv file index locations for reading and writing
+        
         private string name;
         public string Name
         {
@@ -27,7 +27,7 @@ namespace AIMS
                 name = value;
             }
         }
-        [Index(1)]
+        
         private decimal price;
         public decimal Price  
         {
@@ -46,7 +46,7 @@ namespace AIMS
                 QuantityPrice = decimal.Multiply(price, quantity);
             }
         }
-        [Index(2)]
+        
         private decimal quantity;
         public decimal Quantity
         {
@@ -64,7 +64,7 @@ namespace AIMS
                 QuantityPrice = decimal.Multiply(price, quantity);
             }
         }
-        [Index(3)]
+        
         private decimal quantityPrice;
         public decimal QuantityPrice
         {
