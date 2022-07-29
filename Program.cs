@@ -16,7 +16,7 @@ namespace AIMS
                 List<AlcoholType> categories = new List<AlcoholType>();
                 string newline = System.Environment.NewLine;
 
-            void read()
+            void read() // Loads saved variables from .csv files
             {
                 categories = new List<AlcoholType>();
                 foreach (string file in Directory.EnumerateFiles(@"csv_files\", "*.csv"))
