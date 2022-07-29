@@ -49,16 +49,16 @@ Alcohol Inventory Managment System Project for Code Kentucky
 		Category,Name,Price 
 		Vodka,Titos,14.56
 		Vodka,Stoli,11.28
-		Bourbo,Woodford,36.15
+		Bourbon,Woodford,36.15
 		Bourbon,Weller,47.4
 		Gin,Bombay,31.25
 		Gin,Hendricks,10.68
 	    Gin,Beefeater,27.68
 		
 ### Recommended Use:
-	- To assist in testing I would suggest starting with ADDing several CATEGORIES followed by a couple
-	  of PRODUCTS to get a good idea of the functionality of the application.
+	- To assist in testing I would suggest starting with ADDing several CATEGORIES followed by a 
+	  couple of PRODUCTS to get a good idea of the functionality of the application.
 	- Adding INVENTORY values next will set you up to see what REPORT can do.
-	- I would recommend testing out either EDIT here since you will have some values to adjust and compare
-	  or EXIT since you can observe the .csv reading and writing functionality.
+	- I would recommend testing out either EDIT here since you will have some values to adjust and 
+	  compare or EXIT since you can observe the .csv reading and writing functionality.
 	- Last but not least I reserved the REMOVE fuction for last given the time spent inputting values.
