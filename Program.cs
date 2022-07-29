@@ -9,7 +9,7 @@ using System.Globalization;
 
 namespace AIMS
 {
-    class Program // add comments to explain what you are doing on diff parts, clear excess
+    class Program // add comments to explain what you are doing on diff parts, clear excess README add > dotnet add package CsvHelper 
     {
         static void Main(string[] args)
         {                       
@@ -17,11 +17,20 @@ namespace AIMS
                 string newline = System.Environment.NewLine;
 
             void read()
-            { 
-                using (var reader = new StreamReader("AIMS_Repository.csv"))
-                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                categories = new List<AlcoholType>();
+                foreach (string file in Directory.EnumerateFiles(@"csv_files\", "*.csv"))
                 {
-                    var records = csv.GetRecords<Product>();
+                    
+                    using (var reader = new StreamReader( file ))
+                    using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                    {
+                        List<Product> records = csv.GetRecords<Product>().ToList();                       
+                        AlcoholType category = new AlcoholType();                       
+                        category.TypeName = file.Substring(10,file.Length - 14 ); // removing csv_files\ & .csv from string (csv_files\Bourbon.csv)                      
+                        category.Products = records;// overrides list of products with .csv Product List                   
+                        categories.Add(category);
+                    }
                 }
             }
             
@@ -29,7 +38,7 @@ namespace AIMS
             {
                 foreach (AlcoholType category in categories)
                 {
-                    using (var writer = new StreamWriter(category.TypeName + ".csv"))
+                    using (var writer = new StreamWriter(@"csv_files\" + category.TypeName + ".csv"))
                     using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                     {
                         csv.WriteRecords(category.Products);
@@ -40,7 +49,8 @@ namespace AIMS
 
             Option returnToMainMenuOption = new Option();
             returnToMainMenuOption = new Option("Return to main menu", () => startMainMenu());
-            //read();
+            read();
+            
             startMainMenu();
 
             void addCategory()
@@ -54,15 +64,16 @@ namespace AIMS
                     AlcoholType category = new AlcoholType();
                     category.TypeName = userInputC;
                     categories.Add(category);
+                    save();
                 }
                 catch
                 {
                     Console.WriteLine("There was an error with your input. Press any key to continue.");
                     Console.ReadKey();
-                    startMainMenu();
+                    startAddMenu();
 
                 }
-                startMainMenu();
+                startAddMenu();
             }
 
             void addProduct()
@@ -81,11 +92,12 @@ namespace AIMS
                         Console.WriteLine("What is the cost of the product?");
                         decimal Price = Convert.ToDecimal(Console.ReadLine());
                         category.AddProduct(Name, Price);
-                        startMainMenu();
+                        save();
+                        startAddMenu();
                     };
                     
                 }
-                Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
+                Menu categorySelectMenu = new Menu("Add: Choose from an existing list of categories.", optionList);
                 categorySelectMenu.Start();
 
             }
@@ -123,16 +135,22 @@ namespace AIMS
                                 };
 
                             }
-                            Menu productSelectMenu = new Menu("Choose from an existing list of products.", productOptionList);
+                            productOptionList.Add(returnToMainMenuOption);
+                            Menu productSelectMenu = new Menu("Remove: Choose from an existing list of products.", productOptionList);
                             productSelectMenu.Start();
 
                         };
 
                     }
-                    Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
+                    optionList.Add(returnToMainMenuOption);
+                    Menu categorySelectMenu = new Menu("Remove: Choose from an existing list of categories.", optionList);
                     categorySelectMenu.Start();
                 }
-                finally { startMainMenu(); }
+                finally 
+                { 
+                    save(); 
+                    removeProduct(); 
+                }
             }
 
             void removeCategory()
@@ -159,9 +177,14 @@ namespace AIMS
                     };
                     
                 }
-                Menu productSelectMenu = new Menu("Choose from an existing list of Categories.", optionList);
+                optionList.Add(returnToMainMenuOption);
+                Menu productSelectMenu = new Menu("Remove: Choose from an existing list of Categories.", optionList);
                 productSelectMenu.Start();}
-                finally { startMainMenu(); }
+                finally
+                {
+                    save();
+                    removeCategory();
+                }
             }
             
             void startMainMenu()
@@ -184,7 +207,7 @@ namespace AIMS
             {
                  new Menu
                 (
-                    "Would you like to add a Product or Category?",
+                    "Add: Would you like to add a Product or Category?",
                     new List<Option>()
                     {
                         new Option("Add Product", () => addProduct()), 
@@ -197,7 +220,7 @@ namespace AIMS
             {
                 new Menu
                 (
-                    "Would you like to remove a Product or Category?",
+                    "Remove: Would you like to remove a Product or Category?",
                     new List<Option>()
                     {
                         new Option("Remove Product", () => removeProduct()),
@@ -242,7 +265,7 @@ namespace AIMS
                                 option.Action = () =>
                                 {
 
-                                    Console.WriteLine("Enter the quantity of the product by tenths.");
+                                    Console.WriteLine("Inventory: Enter the quantity of the product by tenths.");
                                     product.Quantity = Convert.ToDecimal(Console.ReadLine());
                                     addQuantity();
                                     
@@ -257,10 +280,14 @@ namespace AIMS
 
                     }
                     optionList.Add(returnToMainMenuOption);
-                    Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
+                    Menu categorySelectMenu = new Menu("Inventory: Choose from an existing list of categories.", optionList);
                     categorySelectMenu.Start();
                 }
-                finally { startMainMenu(); }
+                finally
+                {
+                    save();
+                    addQuantity();
+                }
             }
             void startEditMenu() 
             {
@@ -288,14 +315,20 @@ namespace AIMS
                         optionList.Add(option);
                         option.Action = () =>
                         {
-                            Console.WriteLine("What would you like to change the name to?");
+                            Console.WriteLine("Edit: What would you like to change the name to?");
                             category.TypeName = Console.ReadLine();
 
                         };
                     }
-                    Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
+                    optionList.Add(returnToMainMenuOption);
+                    Menu categorySelectMenu = new Menu("Edit: Choose from an existing list of categories.", optionList);
                     categorySelectMenu.Start();
-                } finally { startEditMenu(); }
+                }
+                finally
+                {
+                    save();
+                    categoryEdit();
+                }
             }
             void productEdit()
             {
@@ -318,21 +351,27 @@ namespace AIMS
                                 productOptionList.Add(option);
                                 option.Action = () =>
                                 {
-                                    Console.WriteLine("What would you like to change the name to?");
+                                    Console.WriteLine("Edit: What would you like to change the name to?");
                                     product.Name = Console.ReadLine();
                                 };
 
                             }
-                            Menu productSelectMenu = new Menu("Choose from an existing list of products.", productOptionList);
+                            productOptionList.Add(returnToMainMenuOption);
+                            Menu productSelectMenu = new Menu("Edit: Choose from an existing list of products.", productOptionList);
                             productSelectMenu.Start();
 
                         };
 
                     }
-                    Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
+                    optionList.Add(returnToMainMenuOption);
+                    Menu categorySelectMenu = new Menu("Edit: Choose from an existing list of categories.", optionList);
                     categorySelectMenu.Start();
                 }
-                finally { startEditMenu(); }
+                finally
+                {
+                    save();
+                    productEdit();
+                }
             }
             void priceEdit()
             {
@@ -355,21 +394,27 @@ namespace AIMS
                                 productOptionList.Add(option);
                                 option.Action = () =>
                                 {
-                                    Console.WriteLine("What would you like to change the price to?");
+                                    Console.WriteLine("Edit: What would you like to change the price to?");
                                     product.Price = Convert.ToDecimal(Console.ReadLine());
                                 };
 
                             }
-                            Menu productSelectMenu = new Menu("Choose from an existing list of products.", productOptionList);
+                            productOptionList.Add(returnToMainMenuOption);
+                            Menu productSelectMenu = new Menu("Edit: Choose from an existing list of products.", productOptionList);
                             productSelectMenu.Start();
 
                         };
 
                     }
-                    Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
+                    optionList.Add(returnToMainMenuOption);
+                    Menu categorySelectMenu = new Menu("Edit: Choose from an existing list of categories.", optionList);
                     categorySelectMenu.Start();
                 }
-                finally { startEditMenu(); }
+                finally
+                {
+                    save();
+                    priceEdit();
+                }
             }
             void startReportMenu()
             {
@@ -395,23 +440,31 @@ namespace AIMS
                     optionList.Add(option);
                     option.Action = () =>
                     {
-
-                        List<Option> productOptionList = new List<Option>();
+                        
+                        Console.Clear();
+                        Menu.WriteLogo();
                         foreach (Product product in category.Products)
                         {
-                            Option option = new Option();
-                            option.Description = product.Name + ", " + product.Price;
-                            productOptionList.Add(option);
+                            try
+                            {
+
+                                Console.WriteLine(product.Name + ", " + product.Price);
+
+                            }
+                            catch (ArgumentException)
+                            {
+                                productPriceReport();
+                            }
 
                         }
-                        productOptionList.Add(returnToMainMenuOption);
-                        Menu productSelectMenu = new Menu("Product names and cost per unit by category.", productOptionList);
-                        productSelectMenu.Start();
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadKey();
 
                     };
 
                 }
-                Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
+                optionList.Add(returnToMainMenuOption);
+                Menu categorySelectMenu = new Menu("Report: Choose from an existing list of categories.", optionList);
                 categorySelectMenu.Start();
             }
             void valueReport()
@@ -424,34 +477,35 @@ namespace AIMS
                     optionList.Add(option);
                     option.Action = () =>
                     {
-
-                        List<Option> productOptionList = new List<Option>();
+                        Console.Clear();
+                        Menu.WriteLogo();                        
                         foreach (Product product in category.Products)
                         {
                             try
                             {
-                                Option option = new Option();
-                                option.Description = "Name: " + product.Name + ", Inventory: " + product.Quantity + " units, Value: " + "$" + Math.Round((product.QuantityPrice), 2);
-                                productOptionList.Add(option);
+                                
+                                Console.WriteLine( "Name: " + product.Name + ", Inventory: " + product.Quantity + " units, Value: " + "$" + Math.Round((product.QuantityPrice), 2));
+                                
+                                
                             }
                             catch (ArgumentException)
                             {
                                 valueReport();
                             }
-
+                            
                         }
-                        productOptionList.Add(returnToMainMenuOption);
-                        Menu productSelectMenu = new Menu("Product name, Inventory and total value of Inventory.", productOptionList);
-                        productSelectMenu.Start();
-
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadKey();
                     };
 
                 }
-                Menu categorySelectMenu = new Menu("Choose from an existing list of categories.", optionList);
+                optionList.Add(returnToMainMenuOption);
+                Menu categorySelectMenu = new Menu("Report: Choose from an existing list of categories.", optionList);
                 categorySelectMenu.Start();
             }
             void startExitMenu()
             {
+                save();
                 new Menu
                 (
                     "Are you sure you want to exit?",
@@ -459,7 +513,7 @@ namespace AIMS
                     {
                         new Option("Yes",() => Environment.Exit(0)),
                         new Option("No",() => startMainMenu())
-                    }
+                    } 
                 ).Start();
             }
             

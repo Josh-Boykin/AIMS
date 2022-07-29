@@ -19,7 +19,7 @@ namespace AIMS
 
         
         private List<Product> products = new List<Product>();
-        public List<Product> Products { get { return products; } }
+        public List<Product> Products { get { return products; } set {products = value; } }
   
 
         public void AddProduct(string addName, decimal addPrice)
