@@ -1,15 +1,9 @@
-﻿using System;
-using System.Threading;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CsvHelper;
-using System.IO;
+﻿using CsvHelper;
 using System.Globalization;
 
 namespace AIMS
 {
-    class Program // add comments to explain what you are doing on diff parts, clear excess README add > dotnet add package CsvHelper 
+    class Program // add comments to explain what you are doing on diff parts, clear excess README add > dotnet add package CsvHelper   !!!
     {
         static void Main(string[] args)
         {                       
@@ -19,13 +13,13 @@ namespace AIMS
             void read() // Loads saved variables from .csv files
             {
                 
-                if (!Directory.Exists(@"aims_csv_files"))
+                if (!Directory.Exists(@"aims_csv_files")) // creates a folder for .csv files if one does not exist.
                 {
                     Directory.CreateDirectory(@"aims_csv_files");
                 }
                 Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
                 categories = new List<AlcoholType>();
-                foreach (string file in Directory.EnumerateFiles(@"aims_csv_files\", "*.csv"))
+                foreach (string file in Directory.EnumerateFiles(@"aims_csv_files\", "*.csv")) // list only filename of .csv files 
                 {
                     
                     using (var reader = new StreamReader( file ))
@@ -40,7 +34,7 @@ namespace AIMS
                 }
             }
             
-            void save()
+            void save() // saves the users input to the .csv file
             {
                 foreach (AlcoholType category in categories)
                 {
@@ -53,13 +47,13 @@ namespace AIMS
 
             }
 
-            Option returnToMainMenuOption = new Option();
+            Option returnToMainMenuOption = new Option();  // added to option menus to make master loop more user friendly
             returnToMainMenuOption = new Option("Return to main menu", () => startMainMenu());
-            read();
+            read(); // reads previously stored data from .csv
             
-            startMainMenu();
+            startMainMenu(); // Menu Start Function
 
-            void addCategory()
+            void addCategory() // function to add categories to store products data
             {
                 Console.WriteLine("Input a name for your category");
                 string userInputC = string.Empty;
@@ -69,10 +63,10 @@ namespace AIMS
                     userInputC = Console.ReadLine();
                     AlcoholType category = new AlcoholType();
                     category.TypeName = userInputC;
-                    categories.Add(category);
+                    categories.Add(category); 
                     save();
                 }
-                catch
+                catch // error handling
                 {
                     Console.WriteLine("There was an error with your input. Press any key to continue.");
                     Console.ReadKey();
@@ -82,7 +76,7 @@ namespace AIMS
                 startAddMenu();
             }
 
-            void addProduct()
+            void addProduct() // function to store product names and prices
             {
                 List<Option> optionList = new List<Option>();
                 foreach (AlcoholType category in categories)
@@ -90,7 +84,7 @@ namespace AIMS
                     Option option = new Option();
                     option.Description = category.TypeName;
                     optionList.Add(option);
-                    option.Action = () =>
+                    option.Action = () => // once the TypeName has been selected everything in the llamda runs 
                     {
                         Console.WriteLine("What is the name of your product?");
                         string Name = Console.ReadLine();
@@ -106,11 +100,11 @@ namespace AIMS
                 new Menu("Add: Choose from an existing list of categories.", optionList).Start();
    
             }
-            void removeProduct()
+            void removeProduct()// Function to delete products 
             {
                 try
                 {
-                    List<Option> optionList = new List<Option>();
+                    List<Option> optionList = new List<Option>(); // choose the category you want to delete a product from
                     foreach (AlcoholType category in categories)
                     {
                         Option option = new Option();
@@ -119,7 +113,7 @@ namespace AIMS
                         option.Action = () =>
                         {
 
-                            List<Option> productOptionList = new List<Option>();
+                            List<Option> productOptionList = new List<Option>(); // Choose a product from a list of products
                             foreach (Product product in category.Products)
                             {
                                 Option option = new Option();
@@ -132,7 +126,7 @@ namespace AIMS
                                         "Are you sure? This will permanently delete the product.",
                                         new List<Option>()
                                         {
-                                        new Option("Delete Product", () => category.Products.Remove(product)),
+                                        new Option("Delete Product", () => category.Products.Remove(product)), // warning message to make sure you have selectied the right product
                                         returnToMainMenuOption
 
                                         }
@@ -150,11 +144,11 @@ namespace AIMS
                 finally 
                 { 
                     save(); 
-                    removeProduct(); 
+                    removeProduct(); // loop to the to of remove product incase you need to do another action
                 }
             }
 
-            void removeCategory()
+            void removeCategory() // removes category and all products assoiated
             {
                 try 
                 { 
@@ -182,14 +176,14 @@ namespace AIMS
                     optionList.Add(returnToMainMenuOption);
                     new Menu("Remove: Choose from an existing list of Categories.", optionList).Start();                    
                 }
-                finally
+                finally 
                 {
                     save();
                     removeCategory();
                 }
             }
             
-            void startMainMenu()
+            void startMainMenu() // main menu list of options that use llamda to perform a function 
             {
                 new Menu
                 (
@@ -205,7 +199,7 @@ namespace AIMS
                     }
                 ).Start();
             }
-            void startAddMenu()
+            void startAddMenu() // menu select screen for adding products and categories
             {
                  new Menu
                 (
@@ -218,7 +212,8 @@ namespace AIMS
                     }
                 ).Start();
             }
-            void startRemoveMenu() 
+            void startRemoveMenu() // menu select screen for removing products and categories
+
             {
                 new Menu
                 (
@@ -232,7 +227,7 @@ namespace AIMS
                 ).Start();
             }
             
-            void startInventoryMenu() 
+            void startInventoryMenu() // menu option for adding inventory quantity
             {
                  new Menu
                 (
@@ -245,7 +240,7 @@ namespace AIMS
                 ).Start();
             }startMainMenu();
             
-            void addQuantity()
+            void addQuantity() // function to take in inventory product quantities
             {
                 try
                 {
@@ -268,7 +263,7 @@ namespace AIMS
                                 {
 
                                     Console.WriteLine("Inventory: Enter the quantity of the product by tenths.");
-                                    product.Quantity = Convert.ToDecimal(Console.ReadLine());
+                                    product.Quantity = Convert.ToDecimal(Console.ReadLine()); // had to convert string to decimal since readline can only take in a string 
                                     addQuantity();
                                     
                                 };
@@ -288,7 +283,7 @@ namespace AIMS
                     addQuantity();
                 }
             }
-            void startEditMenu() 
+            void startEditMenu() // Menu select screen for options that exist to be changed
             {
                 new Menu
                 (
@@ -302,7 +297,7 @@ namespace AIMS
                     }
                 ).Start();
             }
-            void categoryEdit()
+            void categoryEdit() // function to update category name
             {
                 try
                 {
@@ -328,7 +323,7 @@ namespace AIMS
                     categoryEdit();
                 }
             }
-            void productEdit()
+            void productEdit() // function to update product name
             {
                 try
                 {
@@ -367,7 +362,7 @@ namespace AIMS
                     productEdit();
                 }
             }
-            void priceEdit()
+            void priceEdit() // function to update product prices
             {
                 try
                 {
@@ -389,7 +384,7 @@ namespace AIMS
                                 option.Action = () =>
                                 {
                                     Console.WriteLine("Edit: What would you like to change the price to?");
-                                    product.Price = Convert.ToDecimal(Console.ReadLine());
+                                    product.Price = Convert.ToDecimal(Console.ReadLine()); 
                                 };
 
                             }
@@ -409,7 +404,7 @@ namespace AIMS
                     priceEdit();
                 }
             }
-            void startReportMenu()
+            void startReportMenu() // menu select for different report options
             {
                 new Menu
                 (
@@ -423,7 +418,7 @@ namespace AIMS
 
                 ).Start();
             }
-            void productPriceReport()
+            void productPriceReport() // function that displays product name and price of 1 unit
             {
                 List<Option> optionList = new List<Option>();
                 foreach (AlcoholType category in categories)
@@ -448,7 +443,7 @@ namespace AIMS
                 new Menu("Report: Choose from an existing list of categories.", optionList).Start();
                 
             }
-            void valueReport()
+            void valueReport() // function that displays product name, inventory quantity as well as the value of the inventory 
             {
                 List<Option> optionList = new List<Option>();
                 foreach (AlcoholType category in categories)
@@ -462,9 +457,9 @@ namespace AIMS
                         Menu.WriteLogo();                        
                         foreach (Product product in category.Products)
                         {
-                            Console.WriteLine( "Name: " + product.Name + ", Inventory: " + product.Quantity + " units, Value: " + "$" + Math.Round((product.QuantityPrice), 2));
+                            Console.WriteLine( "Name: " + product.Name + ", Inventory: " + product.Quantity + " units, Value: " + "$" + Math.Round((product.QuantityPrice), 2));// last part of line multiplies product price and quantity & displays rounding to 2 decimal points.
                         }
-                        Console.WriteLine("Press any key to continue...");
+                        Console.WriteLine("Press any key to continue..."); //requires any key stroke to advance back to report menu
                         Console.ReadKey();
                         startReportMenu();
                     };
@@ -472,7 +467,7 @@ namespace AIMS
                 optionList.Add(returnToMainMenuOption);
                 new Menu("Report: Choose from an existing list of categories.", optionList).Start();                
             }
-            void startExitMenu()
+            void startExitMenu() // menu select for whether or not to exit console.
             {
                 save();
                 new Menu

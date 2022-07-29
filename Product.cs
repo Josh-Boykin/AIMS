@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CsvHelper;
-using System.IO;
-using System.Globalization;
-using CsvHelper.Configuration.Attributes;
+﻿using CsvHelper.Configuration.Attributes;
 
 namespace AIMS
 {
     class Product
     {        
-        [Index(0)]
+        [Index(0)] // used to track .csv file index locations for reading and writing
         private string name;
         public string Name
         {

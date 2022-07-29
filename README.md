@@ -35,6 +35,27 @@ Alcohol Inventory Managment System Project for Code Kentucky
 	
 ### Feature 4:
 	
-  - Calculate and display data based on an external factor (ex: get the current date, and display how many days remaining until some event)
+  - Create an additional class which inherits one or more properties from its parent
 	
   - If time permits, I plan to implement additional functionality such as a LINQ query and unit test as a stretch goal.
+## Instructions For Use:
+### First Things First
+  - While I expect things to load as they should, in case theres an issue csvHelper, just paste this code into the shell:  > dotnet add package CsvHelper
+  - Although my application is capable of storing Product information, it will be empty upon arrival. Here is some sample values to assist in testing although 
+    you are more than welcome to make it up as you go ;-)
+
+	Sample Values
+		- Category:Vodka,   Product:Titos,		Price:15.68
+		- Category:Vodka,   Product:Stoli,		Price:11.28
+		- Category:Bourbon, Product:Woodford,	Price:36.15
+		- Category:Bourbon, Product:Weller,		Price:14.97
+		- Category:Gin,		Product:Bombay,		Price:15.68
+		- Category:Gin,		Product:Hendricks,  Price:15.68
+		- Category:Gin,		Product:Beefeater,  Price:15.68
+
+### Recommended Use:
+	- To assist in testing I would suggest starting with ADDing several CATEGORIES followed by a couple of PRODUCTS to get a good idea of the functionality 
+	  of the application.
+	- Adding INVENTORY values next will set you up to see what REPORT can do.
+	-I would recommend testing out either EDIT here since you will have some values to adjust and compare or EXIT since you can observe the .csv reading and writing functionality.
+	- Last but not least I reserved the REMOVE fuction for last given the time spent inputting values.

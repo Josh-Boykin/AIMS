@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AIMS
+﻿namespace AIMS
 {
     internal class Menu
     {
@@ -28,7 +22,7 @@ namespace AIMS
         public void DisplayOptions()
         {
             int i = 1;
-            foreach (var option in Options)
+            foreach (var option in Options) //numbers a dynamic list that can change in size
             {
                 Console.Write(i++ + ".) ");
                 option.Display();
