@@ -18,8 +18,14 @@ namespace AIMS
 
             void read() // Loads saved variables from .csv files
             {
+                
+                if (!Directory.Exists(@"aims_csv_files"))
+                {
+                    Directory.CreateDirectory(@"aims_csv_files");
+                }
+                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
                 categories = new List<AlcoholType>();
-                foreach (string file in Directory.EnumerateFiles(@"csv_files\", "*.csv"))
+                foreach (string file in Directory.EnumerateFiles(@"aims_csv_files\", "*.csv"))
                 {
                     
                     using (var reader = new StreamReader( file ))
@@ -27,7 +33,7 @@ namespace AIMS
                     {
                         List<Product> records = csv.GetRecords<Product>().ToList();                       
                         AlcoholType category = new AlcoholType();                       
-                        category.TypeName = file.Substring(10,file.Length - 14 ); // removing csv_files\ & .csv from string (csv_files\Bourbon.csv)                      
+                        category.TypeName = file.Substring(15,file.Length - 19 ); // removing aims_csv_files\ & .csv from string (aims_csv_files\Bourbon.csv)                      
                         category.Products = records;// overrides list of products with .csv Product List                   
                         categories.Add(category);
                     }
@@ -38,7 +44,7 @@ namespace AIMS
             {
                 foreach (AlcoholType category in categories)
                 {
-                    using (var writer = new StreamWriter(@"csv_files\" + category.TypeName + ".csv"))
+                    using (var writer = new StreamWriter(@"aims_csv_files\" + category.TypeName + ".csv"))
                     using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                     {
                         csv.WriteRecords(category.Products);
