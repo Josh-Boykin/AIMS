@@ -7,46 +7,20 @@ using CsvHelper;
 using System.IO;
 using System.Globalization;
 using System.ComponentModel;
+using CsvHelper.Configuration.Attributes;
+
 namespace AIMS
 {
     class AlcoholType
     {
-        [DefaultValue("DefaultName")]
+        [Index(0)]
+        private string typeName;
         public string TypeName { get; set; }
-        //{
-        //    get
-        //    {
-        //        return TypeName;
-        //    }
-        //    set
-        //    {
-        //        try
-        //        {
-        //            TypeName = value;
-        //        }
-        //        catch (StackOverflowException e)
-        //        {
-        //            Console.WriteLine("The user input overflowed");
-        //            Console.WriteLine("value =" + value);
-        //            Console.WriteLine("TypeName =" + TypeName);
-        //            Console.WriteLine(e.Message);
-        //        }
-        //    }
-        //}
-        List<Product> products = new List<Product>();
-        public void setTypeName(string TypeName)
-        {
-            this.TypeName = TypeName;
-        }
+
         
-        public static void ListOfTypes(SortedSet<string> typeNames)
-        {
-            foreach (string typeName in typeNames)
-            {
-                Console.WriteLine(typeName);
-            }
-            Console.ReadLine();
-        }
+        private List<Product> products = new List<Product>();
+        public List<Product> Products { get { return products; } set {products = value; } }
+  
 
         public void AddProduct(string addName, decimal addPrice)
         {

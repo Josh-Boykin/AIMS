@@ -9,16 +9,18 @@ namespace AIMS
     internal class Menu
     {
 
-        public Menu(string Text, List<Option> Options)
+        public Menu(string Text, List<Option> Options) 
         {
             this.Text = Text;
             this.Options = Options;
-        }
+        }        
 
-        public Menu() { }
-
+        private string text;
         public string Text { get; set; }
+
+        private List<Option> options;
         public List<Option> Options { get; set; }
+
         public void DisplayText()
         {
             Console.WriteLine(Text);
@@ -30,7 +32,7 @@ namespace AIMS
             {
                 Console.Write(i++ + ".) ");
                 option.Display();
-                Console.Write("\r\n"); // is there a better way to make options display vertically?
+                Console.Write("\r\n");
             }
         }
         public void Start()

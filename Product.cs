@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using CsvHelper;
 using System.IO;
 using System.Globalization;
+using CsvHelper.Configuration.Attributes;
 
 namespace AIMS
 {
     class Product
     {        
+        [Index(0)]
+        private string name;
         public string Name
         {
             get
             {
-                return Name;
+                return name;
             }
             set
             {
@@ -28,15 +31,18 @@ namespace AIMS
                 else if (myString.Length > 20)
                 {
                     throw new ArgumentOutOfRangeException(" over 20 characters is not allowed for product name.");
-                }
-                Name = value;
+                }                
+                name = value;
             }
         }
-        public decimal Price  // property
+        [Index(1)]
+        private decimal price;
+        public decimal Price  
         {
+            
             get
             {
-                return Price;
+                return price;
             }
             set
             {
@@ -44,16 +50,17 @@ namespace AIMS
                 {
                     throw new ArgumentException();
                 }
-                Price = Math.Round(value, 2);
+                price = Math.Round(value, 2);
+                QuantityPrice = decimal.Multiply(price, quantity);
             }
         }
-
-
+        [Index(2)]
+        private decimal quantity;
         public decimal Quantity
         {
             get
             {
-                return Quantity;
+                return quantity;
             }
             set
             {
@@ -61,31 +68,23 @@ namespace AIMS
                 {
                     throw new ArgumentException();
                 }
-                Quantity = Convert.ToDecimal(value);
-                Math.Round(value, 2); //check to see if this is working
+                quantity = Math.Round((value), 2);   
+                QuantityPrice = decimal.Multiply(price, quantity);
             }
         }
+        [Index(3)]
+        private decimal quantityPrice;
         public decimal QuantityPrice
         {
             get
             {
-                return QuantityPrice;
+                return decimal.Multiply(price, quantity);                
             }
             set
             {
-                Decimal QuantityPrice = Decimal.Multiply(Price, Quantity);
+                quantityPrice = value;
             }
-            
-        }
-        public void SetName()
-        {
-            return; //is this right?
-        }
-        public void SetPrice() 
-        {
-            return;
-        }
-        public override string ToString() => $"Product Name:{Name}\n Product Price:{Price}\nAmount of Inventory:{Quantity}\nValue of Inventory{QuantityPrice}";
+        }                
     }
 }
     

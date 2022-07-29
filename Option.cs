@@ -10,11 +10,15 @@ namespace AIMS
             this.Action = Action;
             this.Description = Description;
         }
-        
+       
         public Option() { }
-
+        
+        private string description;
         public string Description { get; set; }
+        
+        private Action action;
         public Action Action { get; set; }
+
         public void Display()
         {
             Console.Write(Description);
