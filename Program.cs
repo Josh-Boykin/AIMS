@@ -97,9 +97,8 @@ namespace AIMS
                     };
                     
                 }
-                Menu categorySelectMenu = new Menu("Add: Choose from an existing list of categories.", optionList);
-                categorySelectMenu.Start();
-
+                new Menu("Add: Choose from an existing list of categories.", optionList).Start();
+   
             }
             void removeProduct()
             {
@@ -136,15 +135,11 @@ namespace AIMS
 
                             }
                             productOptionList.Add(returnToMainMenuOption);
-                            Menu productSelectMenu = new Menu("Remove: Choose from an existing list of products.", productOptionList);
-                            productSelectMenu.Start();
-
+                            new Menu("Remove: Choose from an existing list of products.", productOptionList).Start();
                         };
-
                     }
                     optionList.Add(returnToMainMenuOption);
-                    Menu categorySelectMenu = new Menu("Remove: Choose from an existing list of categories.", optionList);
-                    categorySelectMenu.Start();
+                    new Menu("Remove: Choose from an existing list of categories.", optionList).Start();
                 }
                 finally 
                 { 
@@ -155,31 +150,32 @@ namespace AIMS
 
             void removeCategory()
             {
-                try { 
-                List<Option> optionList = new List<Option>();
-                foreach (AlcoholType category in categories)
-                {
-                    Option option = new Option();
-                    option.Description = category.TypeName;
-                    optionList.Add(option);
-                    option.Action = () =>
+                try 
+                { 
+                    List<Option> optionList = new List<Option>();
+                    foreach (AlcoholType category in categories)
                     {
-                        new Menu
-                        (
-                            "Are you sure? This will permanently delete all products added inside this\r\n" +
-                            "category as well as the category.",
-                            new List<Option>()
-                            {
-                                new Option("Delete Category and all products connected.", () => categories.Remove(category)),
-                                returnToMainMenuOption
-                            }
-                        ).Start();                        
-                    };
+                        Option option = new Option();
+                        option.Description = category.TypeName;
+                        optionList.Add(option);
+                        option.Action = () =>
+                        {
+                            new Menu
+                            (
+                                "Are you sure? This will permanently delete all products added inside this\r\n" +
+                                "category as well as the category.",
+                                new List<Option>()
+                                {
+                                    new Option("Delete Category and all products connected.", () => categories.Remove(category)),
+                                    returnToMainMenuOption
+                                }
+                            ).Start();                        
+                        };
                     
+                    }
+                    optionList.Add(returnToMainMenuOption);
+                    new Menu("Remove: Choose from an existing list of Categories.", optionList).Start();                    
                 }
-                optionList.Add(returnToMainMenuOption);
-                Menu productSelectMenu = new Menu("Remove: Choose from an existing list of Categories.", optionList);
-                productSelectMenu.Start();}
                 finally
                 {
                     save();
@@ -273,15 +269,12 @@ namespace AIMS
 
                             }
                             productOptionList.Add(returnToMainMenuOption);
-                            Menu productSelectMenu = new Menu("Inventory: Choose from an existing list of products.", productOptionList);
-                            productSelectMenu.Start();
-                            
+                            new Menu("Inventory: Choose from an existing list of products.", productOptionList).Start();                                                        
                         };
 
                     }
                     optionList.Add(returnToMainMenuOption);
-                    Menu categorySelectMenu = new Menu("Inventory: Choose from an existing list of categories.", optionList);
-                    categorySelectMenu.Start();
+                    new Menu("Inventory: Choose from an existing list of categories.", optionList).Start();
                 }
                 finally
                 {
@@ -321,8 +314,7 @@ namespace AIMS
                         };
                     }
                     optionList.Add(returnToMainMenuOption);
-                    Menu categorySelectMenu = new Menu("Edit: Choose from an existing list of categories.", optionList);
-                    categorySelectMenu.Start();
+                    new Menu("Edit: Choose from an existing list of categories.", optionList).Start();                    
                 }
                 finally
                 {
@@ -357,15 +349,11 @@ namespace AIMS
 
                             }
                             productOptionList.Add(returnToMainMenuOption);
-                            Menu productSelectMenu = new Menu("Edit: Choose from an existing list of products.", productOptionList);
-                            productSelectMenu.Start();
-
+                            new Menu("Edit: Choose from an existing list of products.", productOptionList).Start();                            
                         };
-
                     }
                     optionList.Add(returnToMainMenuOption);
-                    Menu categorySelectMenu = new Menu("Edit: Choose from an existing list of categories.", optionList);
-                    categorySelectMenu.Start();
+                    new Menu("Edit: Choose from an existing list of categories.", optionList).Start();                    
                 }
                 finally
                 {
@@ -407,8 +395,7 @@ namespace AIMS
 
                     }
                     optionList.Add(returnToMainMenuOption);
-                    Menu categorySelectMenu = new Menu("Edit: Choose from an existing list of categories.", optionList);
-                    categorySelectMenu.Start();
+                    new Menu("Edit: Choose from an existing list of categories.", optionList).Start();                    
                 }
                 finally
                 {
@@ -439,33 +426,21 @@ namespace AIMS
                     option.Description = category.TypeName;
                     optionList.Add(option);
                     option.Action = () =>
-                    {
-                        
+                    {                        
                         Console.Clear();
                         Menu.WriteLogo();
                         foreach (Product product in category.Products)
                         {
-                            try
-                            {
-
-                                Console.WriteLine(product.Name + ", " + product.Price);
-
-                            }
-                            catch (ArgumentException)
-                            {
-                                productPriceReport();
-                            }
-
+                            Console.WriteLine(product.Name + ", " + product.Price);
                         }
                         Console.WriteLine("Press any key to continue...");
                         Console.ReadKey();
-
+                        startReportMenu();
                     };
-
-                }
+                }                
                 optionList.Add(returnToMainMenuOption);
-                Menu categorySelectMenu = new Menu("Report: Choose from an existing list of categories.", optionList);
-                categorySelectMenu.Start();
+                new Menu("Report: Choose from an existing list of categories.", optionList).Start();
+                
             }
             void valueReport()
             {
@@ -481,27 +456,15 @@ namespace AIMS
                         Menu.WriteLogo();                        
                         foreach (Product product in category.Products)
                         {
-                            try
-                            {
-                                
-                                Console.WriteLine( "Name: " + product.Name + ", Inventory: " + product.Quantity + " units, Value: " + "$" + Math.Round((product.QuantityPrice), 2));
-                                
-                                
-                            }
-                            catch (ArgumentException)
-                            {
-                                valueReport();
-                            }
-                            
+                            Console.WriteLine( "Name: " + product.Name + ", Inventory: " + product.Quantity + " units, Value: " + "$" + Math.Round((product.QuantityPrice), 2));
                         }
                         Console.WriteLine("Press any key to continue...");
                         Console.ReadKey();
+                        startReportMenu();
                     };
-
                 }
                 optionList.Add(returnToMainMenuOption);
-                Menu categorySelectMenu = new Menu("Report: Choose from an existing list of categories.", optionList);
-                categorySelectMenu.Start();
+                new Menu("Report: Choose from an existing list of categories.", optionList).Start();                
             }
             void startExitMenu()
             {
