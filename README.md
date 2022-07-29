@@ -45,14 +45,15 @@ Alcohol Inventory Managment System Project for Code Kentucky
     you are more than welcome to make it up as you go ;-)
 
 	Sample Values
-		Category --> Name --> Price 
-		Vodka --> Titos --> 14.56
-		Vodka, -->  ProductsTEEE --> 11.28
-		Bourbo --> Woodford -->	 36.15
-		Bourbon --> weller --> 47.4
-		Gin  -->  Bomba --> 31.25
-		Gin, --> Hendricks,  Price:15.68
-	    Gin,  --> Beefeater,  Price:15.68
+		
+		Category,Name,Price 
+		Vodka,Titos,14.56
+		Vodka,Stoli,11.28
+		Bourbo,Woodford,36.15
+		Bourbon,Weller,47.4
+		Gin,Bombay,31.25
+		Gin,Hendricks,10.68
+	    Gin,Beefeater,27.68
 		
 ### Recommended Use:
 	- To assist in testing I would suggest starting with ADDing several CATEGORIES followed by a couple
