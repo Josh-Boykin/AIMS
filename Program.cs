@@ -168,7 +168,11 @@ namespace AIMS
                                 "category as well as the category.",
                                 new List<Option>()
                                 {
-                                    new Option("Delete Category and all products connected.", () => categories.Remove(category)),
+                                    new Option("Delete Category and all products connected.", () => 
+                                    {
+                                        categories.Remove(category);
+                                        File.Delete(@"aims_csv_files\" + category.TypeName + ".csv");
+                                    }),
                                     returnToMainMenuOption
                                 }
                             ).Start();                        
@@ -312,8 +316,18 @@ namespace AIMS
                         option.Action = () =>
                         {
                             Console.WriteLine("Edit: What would you like to change the name to?");
-                            category.TypeName = Console.ReadLine();
+                            string oldName = category.TypeName;
 
+                            try
+                            {
+                                category.TypeName = Console.ReadLine();
+                            }
+                            finally
+                            {
+                                File.Delete(@"aims_csv_files\" + oldName + ".csv");
+                                save();
+                            }
+                            
                         };
                     }
                     optionList.Add(returnToMainMenuOption);
